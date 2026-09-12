@@ -1,0 +1,270 @@
+import { useEffect, useRef, useState, useCallback } from 'react'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
+
+const roles = ['Frontend Developer', 'Motion Designer', 'Creative Frontend Engineer']
+
+export default function Hero({ darkMode }: { darkMode: boolean }) {
+  const sectionRef = useRef<HTMLElement>(null)
+  const greetingRef = useRef<HTMLParagraphElement>(null)
+  const nameLine1Ref = useRef<HTMLHeadingElement>(null)
+  const nameLine2Ref = useRef<HTMLHeadingElement>(null)
+  const taglineRef = useRef<HTMLDivElement>(null)
+  const ctaGroupRef = useRef<HTMLDivElement>(null)
+  const glowRef = useRef<HTMLDivElement>(null)
+  const rolesContainerRef = useRef<HTMLDivElement>(null)
+  const rolesTrackRef = useRef<HTMLDivElement>(null)
+
+  const [activeRole, setActiveRole] = useState(0)
+  const prefersReducedMotion = useRef(false)
+
+  useEffect(() => {
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)')
+    prefersReducedMotion.current = mq.matches
+    const handler = (e: MediaQueryListEvent) => { prefersReducedMotion.current = e.matches }
+    mq.addEventListener('change', handler)
+    return () => mq.removeEventListener('change', handler)
+  }, [])
+
+  // Rotating roles
+  useEffect(() => {
+    if (prefersReducedMotion.current) return
+    const interval = setInterval(() => {
+      setActiveRole((prev) => (prev + 1) % roles.length)
+    }, 2500)
+    return () => clearInterval(interval)
+  }, [])
+
+  // Mouse glow
+  const handleMouseMove = useCallback((e: MouseEvent) => {
+    if (!glowRef.current || !sectionRef.current) return
+    const rect = sectionRef.current.getBoundingClientRect()
+    const x = e.clientX - rect.left
+    const y = e.clientY - rect.top
+    gsap.to(glowRef.current, {
+      x,
+      y,
+      duration: 0.8,
+      ease: 'power2.out',
+    })
+  }, [])
+
+  useEffect(() => {
+    const section = sectionRef.current
+    if (!section) return
+    section.addEventListener('mousemove', handleMouseMove)
+    return () => section.removeEventListener('mousemove', handleMouseMove)
+  }, [handleMouseMove])
+
+  // GSAP animations
+  useEffect(() => {
+    const reducedMotion = prefersReducedMotion.current
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({
+        defaults: { ease: 'power3.out' },
+        delay: 0.2,
+      })
+
+      if (reducedMotion) {
+        gsap.set([greetingRef.current, nameLine1Ref.current, nameLine2Ref.current, taglineRef.current, rolesTrackRef.current, ctaGroupRef.current], { opacity: 1, y: 0, clipPath: 'none' })
+      } else {
+        // Greeting
+        tl.fromTo(greetingRef.current,
+          { opacity: 0, x: -20 },
+          { opacity: 1, x: 0, duration: 0.6 },
+          0
+        )
+
+        // RISHAV — clip-path reveal from bottom
+        tl.fromTo(nameLine1Ref.current,
+          { opacity: 0, y: 60, clipPath: 'inset(0 0 100% 0)' },
+          { opacity: 1, y: 0, clipPath: 'inset(0 0 0% 0)', duration: 1.1, ease: 'power4.out' },
+          0.15
+        )
+
+        // DAS — clip-path reveal from right
+        tl.fromTo(nameLine2Ref.current,
+          { opacity: 0, clipPath: 'inset(0 100% 0 0)' },
+          { opacity: 1, clipPath: 'inset(0 0% 0 0)', duration: 1.2, ease: 'power3.inOut' },
+          0.4
+        )
+
+        // Tagline — clip-path reveal from left
+        tl.fromTo(taglineRef.current,
+          { opacity: 0, clipPath: 'inset(0 100% 0 0)' },
+          { opacity: 1, clipPath: 'inset(0 0% 0 0)', duration: 0.8, ease: 'power3.inOut' },
+          0.8
+        )
+
+        // Roles track
+        tl.fromTo(rolesTrackRef.current,
+          { opacity: 0, y: 10 },
+          { opacity: 1, y: 0, duration: 0.6 },
+          0.95
+        )
+
+        // CTA group
+        tl.fromTo(ctaGroupRef.current,
+          { opacity: 0, y: 15 },
+          { opacity: 1, y: 0, duration: 0.6 },
+          1.05
+        )
+
+        // ScrollTrigger — parallax on scroll
+        ScrollTrigger.create({
+          trigger: sectionRef.current,
+          start: 'top top',
+          end: '80% top',
+          scrub: 1.5,
+          onUpdate: (self) => {
+            const p = self.progress
+            const nameScale = 1 - p * 0.15
+
+            gsap.set(nameLine1Ref.current, { scale: nameScale })
+            gsap.set(nameLine2Ref.current, { scale: nameScale })
+            gsap.set(greetingRef.current, { opacity: 1 - p * 2 })
+            gsap.set(taglineRef.current, { opacity: 1 - p * 1.8 })
+            gsap.set(rolesTrackRef.current, { opacity: 1 - p * 2 })
+            gsap.set(ctaGroupRef.current, { opacity: 1 - p * 2.2 })
+          },
+        })
+      }
+    }, sectionRef)
+
+    return () => ctx.revert()
+  }, [])
+
+  return (
+    <section
+      ref={sectionRef}
+      aria-label="Hero — introduction"
+      className={`relative h-screen min-h-[600px] flex flex-col justify-center overflow-hidden transition-colors duration-300 ${darkMode ? 'bg-[#0A0A0A]' : 'bg-white'}`}
+    >
+      {/* Mouse glow */}
+      <div
+        ref={glowRef}
+        aria-hidden="true"
+        className="absolute pointer-events-none -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full opacity-50"
+        style={{
+          background: darkMode
+            ? 'radial-gradient(circle, rgba(139,92,246,0.25) 0%, transparent 70%)'
+            : 'radial-gradient(circle, rgba(139,92,246,0.15) 0%, transparent 70%)',
+        }}
+      />
+
+      {/* Content — centered block, left-aligned text */}
+      <div className="relative z-10 w-full max-w-[1200px] mx-auto px-6 md:px-12 lg:px-16 mt-12">
+        {/* Greeting */}
+        <p
+          ref={greetingRef}
+          className={`font-display text-[clamp(1.5rem,2.5vw,2.25rem)] font-light tracking-tight mb-2 opacity-0 transition-colors duration-300 ${darkMode ? 'text-[#F5F5F5]' : 'text-slate-900'}`}
+        >
+          Hello, I'm
+        </p>
+
+        {/* Name composition — RISHAV + DAS */}
+        <div className="relative">
+          {/* RISHAV — dominant anchor */}
+          <h1
+            ref={nameLine1Ref}
+            className={`font-anton leading-[0.82] tracking-[-0.01em] text-[clamp(5rem,25vw,25rem)] whitespace-nowrap opacity-0 transition-colors duration-300 ${darkMode ? 'text-[#F5F5F5]' : 'text-slate-900'}`}
+          >
+            RISHAV
+          </h1>
+
+          {/* DAS — oversized outlined, overlaps lower-right, extends past viewport */}
+          <h1
+            ref={nameLine2Ref}
+            className="font-anton leading-[0.82] tracking-[-0.01em] text-[clamp(5rem,22vw,22rem)] whitespace-nowrap opacity-0 absolute left-[53%] top-[77%] z-10"
+            style={{
+              color: 'transparent',
+              WebkitTextStroke: darkMode ? '1.5px rgba(255,255,255,0.3)' : '1.5px rgba(0,0,0,0.15)',
+            }}
+          >
+            DAS
+          </h1>
+
+
+        </div>
+
+        {/* Tagline — 32-36px */}
+        <div
+          ref={taglineRef}
+          className="flex items-start gap-4 mt-2 mb-4 opacity-0"
+          style={{ clipPath: 'inset(0 100% 0 0)' }}
+        >
+          <p className={`font-display text-[clamp(1.5rem,2.2vw,2.25rem)] font-normal leading-[1.4] transition-colors duration-300 ${darkMode ? 'text-[#9CA3AF]' : 'text-slate-500'}`}>
+            <span className="lg:hidden">Crafting interfaces<br />people </span>
+            <span className="hidden lg:inline">Crafting interfaces people<br /></span>
+            <span className="text-[#9CA3AF]">remember</span>.
+          </p>
+        </div>
+
+        {/* Roles — rotating highlight */}
+        <div
+          ref={rolesContainerRef}
+          className="mb-6"
+          aria-label="Roles"
+        >
+          <div ref={rolesTrackRef} className="flex flex-col gap-1" aria-live="polite" aria-atomic="true">
+            {roles.map((role, index) => (
+              <span
+                key={role}
+                aria-hidden={activeRole !== index}
+                className={`block h-[1.6em] leading-[1.6] font-display text-[clamp(0.875rem,1.25vw,1.125rem)] transition-all duration-500 ${
+                  activeRole === index
+                    ? darkMode
+                      ? 'text-white'
+                      : 'text-slate-900'
+                    : darkMode
+                      ? 'text-[#6B7280]/40'
+                      : 'text-slate-400/40'
+                }`}
+              >
+                {role}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        {/* Action row — CTA + Availability */}
+        <div ref={ctaGroupRef} className="flex flex-wrap items-center gap-6 md:gap-8 opacity-0">
+          <a
+            href="#projects"
+            aria-label="View projects"
+            className={`group relative inline-flex items-center gap-3 h-16 px-9 rounded-full bg-white font-display font-medium text-[20px] overflow-hidden ${
+              darkMode
+                ? 'border border-white/20'
+                : 'border border-slate-300'
+            }`}
+          >
+            <span className="relative z-10 flex items-center gap-3">
+              <span className="text-slate-900 group-hover:text-white transition-colors duration-300">Let's Connect</span>
+              <span className="flex items-center justify-center w-8 h-8 rounded-full border-2 border-slate-900 group-hover:border-white transition-all duration-300 group-hover:rotate-[-45deg]">
+                <svg
+                  className="w-3.5 h-3.5 text-slate-900 group-hover:text-white transition-colors duration-300"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </span>
+            </span>
+            <span className="absolute inset-0 bg-[#9CA3AF] translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out rounded-full" />
+          </a>
+
+          <div className={`flex items-center gap-2.5 font-display text-[20px] font-medium tracking-[0.04em] transition-colors duration-300 ${darkMode ? 'text-white' : 'text-slate-800'}`}>
+            <span className="flex items-center justify-center h-4 w-4 rounded-full border border-[#43fa47]">
+              <span className="h-2 w-2 rounded-full bg-[#43fa47]" />
+            </span>
+            Available for work
+          </div>
+        </div>
+      </div>
+
+    </section>
+  )
+}

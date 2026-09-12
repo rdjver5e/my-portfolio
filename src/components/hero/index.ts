@@ -1,0 +1,5 @@
+export { default as Hero } from './Hero'
+export { default as HeroIllustration } from './HeroIllustration'
+export { default as FloatingPills } from './FloatingPills'
+export { default as BackgroundLayers } from './BackgroundLayers'
+export { default as MagneticButton } from './MagneticButton'
