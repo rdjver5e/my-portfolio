@@ -84,7 +84,6 @@ function SmallMockup({ project }: { project: Project }) {
       style={{
         background: '#111214',
         border: '1px solid rgba(255,255,255,0.09)',
-        boxShadow: `0 24px 70px -18px ${project.accent}35, 0 4px 18px rgba(0,0,0,0.55)`,
       }}
     >
       <div className="flex items-center gap-1 px-2.5 pt-2.5">
@@ -111,7 +110,6 @@ function SmallBack({ project }: { project: Project }) {
       style={{
         background: project.gradient,
         border: '1px solid rgba(255,255,255,0.12)',
-        boxShadow: `0 24px 70px -18px ${project.accent}45, 0 4px 18px rgba(0,0,0,0.55)`,
       }}
     >
       <div
@@ -155,7 +153,6 @@ function MainIndexCard({ rowRefs }: { rowRefs: React.MutableRefObject<(HTMLDivEl
       style={{
         background: '#101012',
         border: '1px solid rgba(255,255,255,0.1)',
-        boxShadow: '0 40px 120px -30px rgba(0,0,0,0.9), 0 0 1px rgba(255,255,255,0.15)',
       }}
     >
       <div className="flex items-center gap-2 px-5 md:px-8 pt-5 md:pt-7">
@@ -205,7 +202,6 @@ function MainBack() {
       style={{
         background: 'linear-gradient(135deg, #0c0c0e 0%, #1c1c22 50%, #0c0c0e 100%)',
         border: '1px solid rgba(255,255,255,0.12)',
-        boxShadow: '0 40px 120px -30px rgba(0,0,0,0.9), 0 0 1px rgba(255,255,255,0.15)',
         color: '#F5F5F5',
       }}
     >

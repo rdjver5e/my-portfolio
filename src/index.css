@@ -268,3 +268,29 @@ a:focus-visible {
     transform: none;
   }
 }
+
+/* ============================================
+   Resume Print (Download → Save as PDF)
+   ============================================ */
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  .resume-sheet,
+  .resume-sheet * {
+    visibility: visible;
+  }
+  .resume-sheet {
+    position: absolute;
+    inset: 0 auto auto 0;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+  .no-print {
+    display: none !important;
+  }
+}

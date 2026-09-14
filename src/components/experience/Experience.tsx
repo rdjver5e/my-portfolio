@@ -1,390 +1,191 @@
-import { useEffect, useRef, useState, useCallback } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
-import { Flip } from 'gsap/Flip'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
-gsap.registerPlugin(ScrollTrigger, Flip)
+gsap.registerPlugin(ScrollTrigger)
 
-interface WorkspaceObject {
-  id: string
-  label: string
-  philosophy: string
-  tools: string[]
-  position: { x: number; y: number }
-  rotation: number
-  scale: number
-  color: string
+const F = 'var(--font-display)'
+const ACCENT = '#9CA3AF'
+
+function useReducedMotion() {
+  const [reduced, setReduced] = useState(false)
+  useEffect(() => {
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)')
+    setReduced(mq.matches)
+    const h = (e: MediaQueryListEvent) => setReduced(e.matches)
+    mq.addEventListener('change', h)
+    return () => mq.removeEventListener('change', h)
+  }, [])
+  return reduced
 }
 
-const objects: WorkspaceObject[] = [
+const U = (id: string) => `https://images.unsplash.com/${id}?q=80&w=900&auto=format&fit=crop&fm=webp`
+
+interface Stop {
+  n: string
+  year: string
+  title: string
+  role: string
+  text: string
+  tags: string[]
+  img: string
+  accent: string
+}
+
+const STOPS: Stop[] = [
   {
-    id: 'frontend',
-    label: 'Creative\nFrontend',
-    philosophy: 'I bridge design intent with production-ready code.',
-    tools: ['React', 'TypeScript', 'JavaScript', 'Webflow', 'Tailwind', 'Next.js'],
-    position: { x: 15, y: 25 },
-    rotation: -3,
-    scale: 1,
-    color: '#9CA3AF',
+    n: '01',
+    year: 'Jul – Aug 2024',
+    title: 'Developer',
+    role: 'GrapplTech — Internship',
+    text: '',
+    tags: [] as string[],
+    img: U('photo-1522071820081-009f0129c71c'),
+    accent: '#8b5cf6',
   },
   {
-    id: 'motion',
-    label: 'Motion',
-    philosophy: 'Motion should guide attention, never steal it.',
-    tools: ['GSAP', 'ScrollTrigger', 'Custom easing', 'Micro-interactions', 'Lottie'],
-    position: { x: 70, y: 20 },
-    rotation: 2,
-    scale: 1.2,
-    color: '#43fa47',
+    n: '02',
+    year: 'Sep – Dec 2025',
+    title: 'Frontend Developer',
+    role: 'Remedio Technologies',
+    text: '',
+    tags: [] as string[],
+    img: U('photo-1553877522-43269d4ea984'),
+    accent: '#f59e0b',
   },
   {
-    id: 'performance',
-    label: 'Performance',
-    philosophy: 'Fast experiences build trust.',
-    tools: ['Lighthouse', 'Code Splitting', 'Image Optimization', 'Lazy Loading', 'Core Web Vitals'],
-    position: { x: 45, y: 65 },
-    rotation: -1,
-    scale: 0.9,
-    color: '#f59e0b',
-  },
-  {
-    id: 'accessibility',
-    label: 'Accessibility',
-    philosophy: 'Good interfaces include everyone.',
-    tools: ['Semantic HTML', 'ARIA', 'Keyboard Navigation', 'Color Contrast', 'Responsive Design'],
-    position: { x: 80, y: 60 },
-    rotation: 4,
-    scale: 0.85,
-    color: '#ec4899',
-  },
-  {
-    id: 'systems',
-    label: 'Design\nSystems',
-    philosophy: 'Consistency creates confidence.',
-    tools: ['Figma', 'Auto Layout', 'Design Tokens', 'Reusable Components', 'Design Systems'],
-    position: { x: 25, y: 70 },
-    rotation: -2,
-    scale: 0.95,
-    color: '#06b6d4',
+    n: '03',
+    year: 'Feb 2026 – Present',
+    title: 'Visual Web Developer',
+    role: 'CoinedOne',
+    text: '',
+    tags: [] as string[],
+    img: U('photo-1558655146-9f40138edfeb'),
+    accent: '#ec4899',
   },
 ]
 
-function FloatingObject({
-  obj,
-  isExpanded,
-  onHoverStart,
-  onHoverEnd,
-}: {
-  obj: WorkspaceObject
-  isExpanded: boolean
-  onHoverStart: () => void
-  onHoverEnd: () => void
-}) {
-  const objectRef = useRef<HTMLDivElement>(null)
-  const [isHovered, setIsHovered] = useState(false)
-
-  const handleMouseEnter = useCallback(() => {
-    setIsHovered(true)
-    onHoverStart()
-  }, [onHoverStart])
-
-  const handleMouseLeave = useCallback(() => {
-    setIsHovered(false)
-    onHoverEnd()
-  }, [onHoverEnd])
-
-  useEffect(() => {
-    if (!objectRef.current) return
-
-    const state = Flip.getState(objectRef.current)
-
-    if (isExpanded) {
-      gsap.to(objectRef.current, {
-        scale: 1.8,
-        x: 0,
-        y: 0,
-        rotation: 0,
-        duration: 0.8,
-        ease: 'power3.out',
-      })
-    } else if (isHovered) {
-      gsap.to(objectRef.current, {
-        scale: obj.scale * 1.1,
-        rotation: obj.rotation * 0.5,
-        duration: 0.5,
-        ease: 'power3.out',
-      })
-    } else {
-      gsap.to(objectRef.current, {
-        scale: obj.scale,
-        rotation: obj.rotation,
-        duration: 0.6,
-        ease: 'power3.out',
-      })
-    }
-
-    Flip.from(state, {
-      duration: 0.8,
-      ease: 'power3.out',
-      absolute: true,
-      onEnter: () => {},
-      onLeave: () => {},
-    })
-  }, [isExpanded, isHovered, obj])
-
-  return (
-    <div
-      ref={objectRef}
-      className="absolute cursor-pointer select-none"
-      style={{
-        left: `${obj.position.x}%`,
-        top: `${obj.position.y}%`,
-        transform: `rotate(${obj.rotation}deg) scale(${obj.scale})`,
-        willChange: 'transform',
-      }}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-    >
-      <div
-        className="transition-all duration-500"
-        style={{
-          fontSize: isExpanded ? 'clamp(3rem, 8vw, 6rem)' : 'clamp(1.5rem, 3vw, 2.5rem)',
-          fontFamily: 'var(--font-display)',
-          fontWeight: 700,
-          letterSpacing: '-0.03em',
-          lineHeight: 1,
-          color: isExpanded ? obj.color : '#F5F5F5',
-          whiteSpace: 'pre-line',
-          textShadow: isExpanded ? `0 0 60px ${obj.color}40` : 'none',
-        }}
-      >
-        {obj.label}
-      </div>
-    </div>
-  )
-}
-
-export default function Experience() {
+export default function Experience({ darkMode = true }: { darkMode?: boolean }) {
   const sectionRef = useRef<HTMLElement>(null)
-  const canvasRef = useRef<HTMLDivElement>(null)
-  const introRef = useRef<HTMLDivElement>(null)
-  const outroRef = useRef<HTMLDivElement>(null)
-  const [expandedId, setExpandedId] = useState<string | null>(null)
-  const [isInView, setIsInView] = useState(false)
+  const stageRef = useRef<HTMLDivElement>(null)
+  const trackRef = useRef<HTMLDivElement>(null)
+  const reduced = useReducedMotion()
+
+  const bg = darkMode ? '#050505' : '#FAFAFA'
+  const ink = darkMode ? '#F5F5F5' : '#0A0A0A'
+  const muted = darkMode ? '#9CA3AF' : '#6B7280'
+  const faint = darkMode ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)'
 
   useEffect(() => {
+    if (reduced) return
+    const stage = stageRef.current
+    const track = trackRef.current
+    if (!stage || !track) return
+
     const ctx = gsap.context(() => {
-      // Intro animation
-      if (introRef.current) {
-        const introElements = introRef.current.querySelectorAll('.intro-reveal')
+      const panels = gsap.utils.toArray<HTMLElement>('[data-panel]')
+      const nums = gsap.utils.toArray<HTMLElement>('[data-num]')
 
-        gsap.fromTo(
-          introElements,
-          { opacity: 0, y: 20 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 1,
-            stagger: 0.15,
-            ease: 'power3.out',
-            scrollTrigger: {
-              trigger: introRef.current,
-              start: 'top 70%',
-              end: 'top 50%',
-              scrub: 1,
-              onEnter: () => setIsInView(true),
-              onLeaveBack: () => setIsInView(false),
-            },
-          }
-        )
+      gsap.set(track, { x: 0 })
+      gsap.set(panels, { opacity: 0.35, scale: 0.97 })
+      gsap.set(nums, { opacity: 0.06 })
 
-        gsap.to(introRef.current, {
-          opacity: 0,
-          y: -30,
-          scrollTrigger: {
-            trigger: introRef.current,
-            start: 'top 40%',
-            end: 'top 10%',
-            scrub: 1,
-          },
-        })
-      }
-
-      // Outro animation
-      if (outroRef.current) {
-        gsap.fromTo(
-          outroRef.current,
-          { opacity: 0, y: 40 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 1.5,
-            ease: 'power3.out',
-            scrollTrigger: {
-              trigger: outroRef.current,
-              start: 'top 75%',
-              toggleActions: 'play none none reverse',
-            },
-          }
-        )
-      }
-
-      // Floating animation for objects
-      objects.forEach((obj, i) => {
-        gsap.to(`#object-${obj.id}`, {
-          y: `+=${10 + i * 5}`,
-          duration: 3 + i * 0.5,
-          ease: 'sine.inOut',
-          yoyo: true,
-          repeat: -1,
-        })
+      const total = track.scrollWidth - stage.clientWidth
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: stage,
+          start: 'top top',
+          end: `+=${STOPS.length * 90}%`,
+          pin: true,
+          scrub: 1,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+        },
       })
-    }, sectionRef)
+
+      tl.to(track, { x: -total, duration: STOPS.length, ease: 'none' }, 0)
+
+      panels.forEach((p, i) => {
+        const at = (i / STOPS.length) * STOPS.length * 0.85
+        tl.to(p, { opacity: 1, scale: 1, duration: 0.7 }, at)
+        tl.to(nums[i], { opacity: 0.11, duration: 0.5 }, at)
+        if (i > 0) {
+          tl.to(panels[i - 1], { opacity: 0, x: -40, duration: 0.5 }, at + 0.55)
+        }
+      })
+    }, stage)
 
     return () => ctx.revert()
-  }, [])
+  }, [reduced])
 
-  const handleObjectHover = useCallback((id: string) => {
-    setExpandedId(id)
-  }, [])
-
-  const handleObjectLeave = useCallback(() => {
-    setExpandedId(null)
-  }, [])
-
-  const expandedObj = objects.find((o) => o.id === expandedId)
+  if (reduced) {
+    return (
+      <section id="experience" className="relative px-6 py-24" style={{ background: bg }}>
+        <div className="max-w-[1100px] mx-auto grid md:grid-cols-2 gap-6">
+          {STOPS.map((s) => (
+            <div key={s.n} className="rounded-[28px] overflow-hidden p-7" style={{ background: darkMode ? '#111113' : '#fff', border: `1px solid ${faint}` }}>
+              <p className="text-[11px] tracking-[0.25em] uppercase" style={{ fontFamily: F, color: ACCENT }}>{s.year}</p>
+              <p className="mt-2 text-xl font-semibold" style={{ fontFamily: F, color: ink }}>{s.title}</p>
+              <p className="mt-1 text-sm" style={{ fontFamily: F, color: muted }}>{s.role}</p>
+              {s.text ? <p className="mt-3 text-sm" style={{ color: muted }}>{s.text}</p> : null}
+            </div>
+          ))}
+        </div>
+      </section>
+    )
+  }
 
   return (
-    <section
-      ref={sectionRef}
-      id="experience"
-      className="relative"
-      style={{ background: '#050505' }}
-    >
-      {/* Grain */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          opacity: 0.04,
-          backgroundImage:
-            "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
-        }}
-      />
-
-      {/* Intro */}
-      <div
-        ref={introRef}
-        className="h-screen flex flex-col items-center justify-center px-6 text-center"
-      >
-        <p
-          className="intro-reveal text-[clamp(2.5rem,5vw,4rem)] font-light tracking-[-0.02em] leading-[1.1] mb-4"
-          style={{ fontFamily: 'var(--font-display)', color: '#F5F5F5' }}
-        >
-          How can I help?
-        </p>
-        <p
-          className="intro-reveal text-[clamp(0.9rem,1.2vw,1.1rem)] tracking-[0.1em]"
-          style={{ fontFamily: 'var(--font-display)', color: '#6B7280' }}
-        >
-          Explore what I bring to every project.
-        </p>
+    <section ref={sectionRef} id="experience" className="relative overflow-hidden" style={{ background: bg }}>
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")` }} />
+        <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse 120% 80% at 50% 0%, rgba(139,92,246,0.07), transparent 60%)' }} />
       </div>
 
-      {/* Workspace Canvas */}
-      <div
-        ref={canvasRef}
-        className="relative h-screen overflow-hidden"
-        style={{ minHeight: '100vh' }}
-      >
-        {/* Background glow based on expanded object */}
-        <div
-          className="absolute inset-0 pointer-events-none transition-all duration-1000"
-          style={{
-            background: expandedObj
-              ? `radial-gradient(circle at 50% 50%, ${expandedObj.color}15, transparent 60%)`
-              : 'none',
-          }}
-        />
-
-        {/* Floating objects */}
-        {isInView && objects.map((obj) => (
-          <FloatingObject
-            key={obj.id}
-            obj={obj}
-            isExpanded={expandedId === obj.id}
-            onHoverStart={() => handleObjectHover(obj.id)}
-            onHoverEnd={handleObjectLeave}
-          />
-        ))}
-
-        {/* Expanded content overlay */}
-        {expandedObj && (
-          <div
-            className="absolute inset-0 flex items-center justify-center pointer-events-none"
-            style={{ zIndex: 10 }}
-          >
-            <div
-              className="text-center max-w-lg px-6"
-              style={{
-                opacity: expandedId ? 1 : 0,
-                transform: `translateY(${expandedId ? 0 : 20}px)`,
-                transition: 'all 0.6s cubic-bezier(0.22, 1, 0.36, 1)',
-              }}
-            >
-              {/* Philosophy */}
-              <p
-                className="text-[clamp(1rem,1.5vw,1.25rem)] leading-[1.6] mb-8 italic"
-                style={{
-                  fontFamily: 'var(--font-display)',
-                  color: '#9CA3AF',
-                }}
-              >
-                "{expandedObj.philosophy}"
-              </p>
-
-              {/* Tools */}
-              <div>
-                <p
-                  className="text-[10px] tracking-[0.3em] uppercase mb-3"
-                  style={{ fontFamily: 'var(--font-display)', color: '#6B7280' }}
-                >
-                  Built with
-                </p>
-                <div className="flex flex-wrap justify-center gap-2">
-                  {expandedObj.tools.map((tool) => (
-                    <span
-                      key={tool}
-                      className="text-xs px-3 py-1"
-                      style={{
-                        fontFamily: 'var(--font-display)',
-                        color: '#9CA3AF',
-                        border: `1px solid ${expandedObj.color}30`,
-                        borderRadius: '2px',
-                      }}
-                    >
-                      {tool}
-                    </span>
-                  ))}
-                </div>
-              </div>
+      <div ref={stageRef} className="relative h-screen min-h-[680px] overflow-hidden" style={{ background: bg }}>
+        <div className="absolute left-0 right-0 top-0 z-20" style={{ background: bg }}>
+          <div className="mx-auto flex max-w-[1400px] items-center justify-between px-6 md:px-10 py-8">
+            <div>
+              <p className="text-[11px] tracking-[0.32em] uppercase" style={{ fontFamily: F, color: muted }}>05 — Experience</p>
+              <h2 className="mt-2 text-[clamp(2rem,4vw,2.8rem)] font-light leading-none tracking-[-0.02em]" style={{ fontFamily: F, color: ink }}>
+                The road, <span className="font-semibold">so far.</span>
+              </h2>
+            </div>
+            <div className="hidden md:flex items-center gap-3 text-[11px] tracking-[0.2em] uppercase" style={{ fontFamily: F, color: muted }}>
+              <span>Scroll to travel →</span>
+              <span className="h-px w-12" style={{ background: faint }} />
             </div>
           </div>
-        )}
-      </div>
+        </div>
 
-      {/* Outro */}
-      <div
-        ref={outroRef}
-        className="h-screen flex flex-col items-center justify-center px-6 text-center"
-      >
-        <p
-          className="text-[clamp(1.5rem,3vw,2.5rem)] font-light tracking-[-0.02em] leading-[1.3] max-w-2xl"
-          style={{ fontFamily: 'var(--font-display)', color: '#F5F5F5' }}
-        >
-          Every product is different.
-          <br />
-          <span style={{ color: '#9CA3AF' }}>Great craftsmanship isn't.</span>
-        </p>
+        <div ref={trackRef} className="absolute top-[22%] md:top-[18%] bottom-[6%] flex gap-6 md:gap-8 px-6 md:px-10 will-change-transform" style={{ background: bg }}>
+          {STOPS.map((s) => (
+            <div
+              key={s.n}
+              data-panel
+              className="relative h-full shrink-0 w-[84vw] md:w-[560px] lg:w-[620px] overflow-hidden rounded-[32px] p-7 md:p-8 flex flex-col justify-center"
+              style={{ background: darkMode ? '#0F0F12' : '#fff', border: `1px solid ${faint}` }}
+            >
+              <div className="absolute inset-0 opacity-20 pointer-events-none" style={{ background: `radial-gradient(600px 400px at 75% 15%, ${s.accent}18, transparent 70%)` }} />
+              <div className="relative">
+                <span className="inline-flex rounded-full px-3 py-1 text-[11px] tracking-[0.22em] uppercase" style={{ fontFamily: F, color: muted, background: darkMode ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)', border: `1px solid ${faint}` }}>{s.year}</span>
+                <h3 className="mt-6 text-[clamp(1.7rem,3vw,2.4rem)] font-semibold leading-[0.95] tracking-[-0.02em]" style={{ fontFamily: F, color: ink }}>{s.title}</h3>
+                <p className="mt-2 text-[13px] tracking-wide" style={{ fontFamily: F, color: muted }}>{s.role}</p>
+              </div>
+            </div>
+          ))}
+
+          <div className="relative h-full shrink-0 w-[84vw] md:w-[460px] overflow-hidden rounded-[32px] flex flex-col justify-center p-8 md:p-10" style={{ background: darkMode ? '#111113' : '#fff', border: `1px solid ${faint}` }}>
+            <p className="text-[11px] tracking-[0.3em] uppercase" style={{ fontFamily: F, color: muted }}>Next</p>
+            <p className="mt-3 text-[clamp(1.8rem,3vw,2.6rem)] font-semibold leading-[0.9] tracking-[-0.02em]" style={{ fontFamily: F, color: ink }}>Your project<br />is the next<br />panel.</p>
+            <p className="mt-4 text-[14px] leading-[1.6]" style={{ fontFamily: F, color: muted }}>If this wall felt intentional, imagine what we build together.</p>
+            <a href="#contact" className="mt-7 inline-flex w-fit items-center gap-2 rounded-full px-6 py-3 text-xs font-semibold tracking-[0.18em] uppercase" style={{ background: ink, color: bg }}>Start a project →</a>
+          </div>
+        </div>
+
+        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2 md:hidden text-[11px] tracking-[0.2em] uppercase" style={{ fontFamily: F, color: muted }}>
+          <span className="h-px w-8" style={{ background: faint }} /> Drag horizontally <span className="h-px w-8" style={{ background: faint }} />
+        </div>
       </div>
     </section>
   )

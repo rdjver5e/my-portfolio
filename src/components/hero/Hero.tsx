@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useCallback } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
@@ -13,7 +13,6 @@ export default function Hero({ darkMode }: { darkMode: boolean }) {
   const nameLine2Ref = useRef<HTMLHeadingElement>(null)
   const taglineRef = useRef<HTMLDivElement>(null)
   const ctaGroupRef = useRef<HTMLDivElement>(null)
-  const glowRef = useRef<HTMLDivElement>(null)
   const rolesContainerRef = useRef<HTMLDivElement>(null)
   const rolesTrackRef = useRef<HTMLDivElement>(null)
 
@@ -36,27 +35,6 @@ export default function Hero({ darkMode }: { darkMode: boolean }) {
     }, 2500)
     return () => clearInterval(interval)
   }, [])
-
-  // Mouse glow
-  const handleMouseMove = useCallback((e: MouseEvent) => {
-    if (!glowRef.current || !sectionRef.current) return
-    const rect = sectionRef.current.getBoundingClientRect()
-    const x = e.clientX - rect.left
-    const y = e.clientY - rect.top
-    gsap.to(glowRef.current, {
-      x,
-      y,
-      duration: 0.8,
-      ease: 'power2.out',
-    })
-  }, [])
-
-  useEffect(() => {
-    const section = sectionRef.current
-    if (!section) return
-    section.addEventListener('mousemove', handleMouseMove)
-    return () => section.removeEventListener('mousemove', handleMouseMove)
-  }, [handleMouseMove])
 
   // GSAP animations
   useEffect(() => {
@@ -142,18 +120,6 @@ export default function Hero({ darkMode }: { darkMode: boolean }) {
       aria-label="Hero — introduction"
       className={`relative h-screen min-h-[600px] flex flex-col justify-center overflow-hidden transition-colors duration-300 ${darkMode ? 'bg-[#0A0A0A]' : 'bg-white'}`}
     >
-      {/* Mouse glow */}
-      <div
-        ref={glowRef}
-        aria-hidden="true"
-        className="absolute pointer-events-none -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full opacity-50"
-        style={{
-          background: darkMode
-            ? 'radial-gradient(circle, rgba(139,92,246,0.25) 0%, transparent 70%)'
-            : 'radial-gradient(circle, rgba(139,92,246,0.15) 0%, transparent 70%)',
-        }}
-      />
-
       {/* Content — centered block, left-aligned text */}
       <div className="relative z-10 w-full max-w-[1200px] mx-auto px-6 md:px-12 lg:px-16 mt-12">
         {/* Greeting */}
@@ -169,7 +135,7 @@ export default function Hero({ darkMode }: { darkMode: boolean }) {
           {/* RISHAV — dominant anchor */}
           <h1
             ref={nameLine1Ref}
-            className={`font-anton leading-[0.82] tracking-[-0.01em] text-[clamp(5rem,25vw,25rem)] whitespace-nowrap opacity-0 transition-colors duration-300 ${darkMode ? 'text-[#F5F5F5]' : 'text-slate-900'}`}
+            className={`relative z-10 font-anton leading-[0.82] tracking-[-0.01em] text-[clamp(5rem,25vw,25rem)] whitespace-nowrap opacity-0 transition-colors duration-300 ${darkMode ? 'text-[#F5F5F5]' : 'text-slate-900'}`}
           >
             RISHAV
           </h1>
