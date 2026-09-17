@@ -71,7 +71,7 @@ export default function Experience({ darkMode = true }: { darkMode?: boolean }) 
   const trackRef = useRef<HTMLDivElement>(null)
   const reduced = useReducedMotion()
 
-  const bg = darkMode ? '#050505' : '#FAFAFA'
+  const bg = darkMode ? '#0A0A0A' : '#FAFAFA'
   const ink = darkMode ? '#F5F5F5' : '#0A0A0A'
   const muted = darkMode ? '#9CA3AF' : '#6B7280'
   const faint = darkMode ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)'

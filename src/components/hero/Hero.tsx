@@ -118,10 +118,10 @@ export default function Hero({ darkMode }: { darkMode: boolean }) {
     <section
       ref={sectionRef}
       aria-label="Hero — introduction"
-      className={`relative h-screen min-h-[600px] flex flex-col justify-center overflow-hidden transition-colors duration-300 ${darkMode ? 'bg-[#0A0A0A]' : 'bg-white'}`}
+      className={`relative min-h-screen min-h-[600px] flex flex-col justify-center overflow-visible transition-colors duration-300 ${darkMode ? 'bg-[#0A0A0A]' : 'bg-white'} pb-10 md:pb-16`}
     >
       {/* Content — centered block, left-aligned text */}
-      <div className="relative z-10 w-full max-w-[1200px] mx-auto px-6 md:px-12 lg:px-16 mt-12">
+      <div className="relative z-10 w-full max-w-[1200px] mx-auto px-6 md:px-12 lg:px-16 mt-12 pb-6">
         {/* Greeting */}
         <p
           ref={greetingRef}
@@ -219,7 +219,7 @@ export default function Hero({ darkMode }: { darkMode: boolean }) {
                 </svg>
               </span>
             </span>
-            <span className="absolute inset-0 bg-[#9CA3AF] translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out rounded-full" />
+            <span className="absolute inset-0 bg-[#8B5CF6] translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out rounded-full" />
           </a>
 
           <div className={`flex items-center gap-2.5 font-display text-[20px] font-medium tracking-[0.04em] transition-colors duration-300 ${darkMode ? 'text-white' : 'text-slate-800'}`}>

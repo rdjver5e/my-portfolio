@@ -356,7 +356,7 @@ export default function SelectedWork({ darkMode = true }: { darkMode?: boolean }
       ref={sectionRef}
       id="projects"
       className="relative transition-colors duration-300"
-      style={{ background: darkMode ? '#050505' : '#FAFAFA' }}
+      style={{ background: darkMode ? '#0A0A0A' : '#FAFAFA' }}
     >
       {/* Scroll track — sticky stage pins while track scrolls */}
       <div ref={wrapRef} className="relative" style={{ height: '320vh' }}>

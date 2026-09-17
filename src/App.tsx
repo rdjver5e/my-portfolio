@@ -58,8 +58,9 @@ function App() {
 
   if (isResume) {
     return (
-      <div className={`min-h-screen ${darkMode ? 'bg-[#0A0A0A] text-white' : 'bg-white text-slate-900'}`}>
-        <ResumePage />
+      <div className={`min-h-screen transition-colors duration-300 ${darkMode ? 'bg-[#0A0A0A] text-white' : 'bg-white text-slate-900'}`}>
+        <FloatingNavbar darkMode={darkMode} onToggleDarkMode={toggleDarkMode} isResumePage />
+        <ResumePage darkMode={darkMode} />
       </div>
     )
   }
@@ -93,25 +94,12 @@ function App() {
 
       <Contact darkMode={darkMode} />
 
-      {/* Footer */}
-      <footer className={`py-8 border-t ${darkMode ? 'border-white/10' : 'border-slate-200'}`}>
+      {/* Footer — single source of truth, no duplicate socials */}
+      <footer className={`py-6 border-t ${darkMode ? 'border-white/10' : 'border-slate-200'}`}>
         <Container>
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <p className={`font-display text-[13px] ${darkMode ? 'text-[#6B7280]' : 'text-slate-400'}`}>
-              &copy; 2026 rdjverse. All rights reserved.
-            </p>
-            <div className="flex items-center gap-6">
-              <a href="https://github.com/rdjverse" target="_blank" rel="noopener noreferrer" className={`font-display text-[13px] hover:text-[#9CA3AF] transition-colors ${darkMode ? 'text-[#6B7280]' : 'text-slate-400'}`}>
-                GitHub
-              </a>
-              <a href="https://linkedin.com/in/rdjverse" target="_blank" rel="noopener noreferrer" className={`font-display text-[13px] hover:text-[#9CA3AF] transition-colors ${darkMode ? 'text-[#6B7280]' : 'text-slate-400'}`}>
-                LinkedIn
-              </a>
-              <a href="https://twitter.com/rdjverse" target="_blank" rel="noopener noreferrer" className={`font-display text-[13px] hover:text-[#9CA3AF] transition-colors ${darkMode ? 'text-[#6B7280]' : 'text-slate-400'}`}>
-                Twitter
-              </a>
-            </div>
-          </div>
+          <p className={`font-display text-center text-[13px] ${darkMode ? 'text-[#6B7280]' : 'text-slate-400'}`}>
+            © 2026 rdjverse — Crafted with intent · Kolkata, India
+          </p>
         </Container>
       </footer>
     </div>

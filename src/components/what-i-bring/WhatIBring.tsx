@@ -431,7 +431,7 @@ export default function WhatIBring({ darkMode = true }: { darkMode?: boolean }) 
       ref={sectionRef}
       id="capabilities"
       className="relative transition-colors duration-300"
-      style={{ background: darkMode ? '#050505' : '#FAFAFA' }}
+      style={{ background: darkMode ? '#0A0A0A' : '#FAFAFA' }}
     >
       {/* ─── Intro ─── */}
       <div data-wheel-intro-wrap className="px-6 md:px-12 lg:px-24 max-w-[1400px] mx-auto pt-24 md:pt-32 lg:pt-40 pb-4 md:pb-6 text-center">

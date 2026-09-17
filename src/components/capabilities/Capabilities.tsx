@@ -257,7 +257,7 @@ export default function Capabilities() {
       ref={sectionRef}
       id="capabilities"
       className="relative"
-      style={{ background: '#050505' }}
+      style={{ background: '#0A0A0A' }}
     >
       {/* Grain */}
       <div

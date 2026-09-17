@@ -48,7 +48,7 @@ const HeroIllustration = forwardRef<SVGSVGElement, HeroIllustrationProps>(
 
           {/* Monitor frame */}
           <rect x="150" y="80" width="300" height="160" rx="8" fill="#0f172a" />
-          <rect x="158" y="88" width="284" height="140" rx="4" fill="#050505" />
+          <rect x="158" y="88" width="284" height="140" rx="4" fill="#0A0A0A" />
 
           {/* Screen content - Code editor */}
           <g className="illustration-screen">

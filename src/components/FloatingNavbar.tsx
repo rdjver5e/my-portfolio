@@ -5,6 +5,7 @@ import AnimatedLogo from './AnimatedLogo'
 import ThemeToggle from './ThemeToggle'
 import ScrollProgress from './ScrollProgress'
 import Container from './layout/Container'
+import cvPdf from '../assets/resume/RishavDas_CV.pdf'
 
 const menuItems = [
   { label: 'About', href: '#philosophy' },
@@ -27,12 +28,12 @@ const socialLinks = [
 interface FloatingNavbarProps {
   darkMode: boolean
   onToggleDarkMode: () => void
+  isResumePage?: boolean
 }
 
-export default function FloatingNavbar({ darkMode, onToggleDarkMode }: FloatingNavbarProps) {
+export default function FloatingNavbar({ darkMode, onToggleDarkMode, isResumePage = false }: FloatingNavbarProps) {
   const [isOpen, setIsOpen] = useState(false)
   const [scrollProgress, setScrollProgress] = useState(0)
-  const [resumeHovered, setResumeHovered] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -173,18 +174,34 @@ export default function FloatingNavbar({ darkMode, onToggleDarkMode }: FloatingN
                                 {item.label}
                               </motion.a>
                             ))}
-                            <motion.a
-                              href="#resume"
-                              className="text-[1.8rem] font-semibold text-slate-900 hover:text-slate-600 transition-colors md:hidden"
-                              initial={{ opacity: 0, x: -15 }}
-                              animate={{ opacity: 1, x: 0 }}
-                              transition={{ delay: menuItems.length * 0.08, type: 'spring', stiffness: 200, damping: 20 }}
-                              whileHover={{ x: 8 }}
-                              role="menuitem"
-                              onClick={() => setIsOpen(false)}
-                            >
-                              Resume
-                            </motion.a>
+                            {isResumePage ? (
+                              <motion.a
+                                href={cvPdf}
+                                download="RishavDas_CV.pdf"
+                                onClick={() => setIsOpen(false)}
+                                className="text-[1.8rem] font-semibold text-slate-900 hover:text-slate-600 transition-colors md:hidden text-left"
+                                initial={{ opacity: 0, x: -15 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ delay: menuItems.length * 0.08, type: 'spring', stiffness: 200, damping: 20 }}
+                                whileHover={{ x: 8 }}
+                                role="menuitem"
+                              >
+                                Download
+                              </motion.a>
+                            ) : (
+                              <motion.a
+                                href="#resume"
+                                className="text-[1.8rem] font-semibold text-slate-900 hover:text-slate-600 transition-colors md:hidden"
+                                initial={{ opacity: 0, x: -15 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ delay: menuItems.length * 0.08, type: 'spring', stiffness: 200, damping: 20 }}
+                                whileHover={{ x: 8 }}
+                                role="menuitem"
+                                onClick={() => setIsOpen(false)}
+                              >
+                                Resume
+                              </motion.a>
+                            )}
                           </div>
                         </div>
 
@@ -265,29 +282,31 @@ export default function FloatingNavbar({ darkMode, onToggleDarkMode }: FloatingN
               </AnimatePresence>
             </div>
 
-            {/* Resume Button */}
-            <a
-              href="#resume"
-              className="group relative px-6 py-3 rounded-full bg-black text-white text-body font-medium border border-white/20 overflow-hidden z-10 hidden md:flex"
-              onMouseEnter={() => setResumeHovered(true)}
-              onMouseLeave={() => setResumeHovered(false)}
-            >
-              <span className="relative z-10 block min-w-[70px] text-center">
-                <AnimatePresence mode="wait">
-                  <motion.span
-                    key={resumeHovered ? 'hovered' : 'idle'}
-                    className="text-white block"
-                    initial={{ opacity: 0, y: 8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -8 }}
-                    transition={{ duration: 0.15 }}
-                  >
-                    Resume
-                  </motion.span>
-                </AnimatePresence>
-              </span>
-              <span className="absolute inset-0 bg-orange-500 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out rounded-full" />
-            </a>
+            {/* Resume / Download Button */}
+            {isResumePage ? (
+              <a
+                href={cvPdf}
+                download="RishavDas_CV.pdf"
+                aria-label="Download resume"
+                className={`group relative inline-flex items-center h-12 px-6 rounded-full font-display font-medium overflow-hidden border transition-colors duration-300 hover:border-white ${
+                  darkMode ? 'border-white/20' : 'border-slate-300'
+                }`}
+              >
+                <span className={`relative z-10 transition-colors duration-300 group-hover:text-white ${darkMode ? 'text-white' : 'text-slate-900'}`}>Download</span>
+                <span className="absolute inset-0 bg-[#8B5CF6] translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out rounded-full" />
+              </a>
+            ) : (
+              <a
+                href="#resume"
+                aria-label="View resume"
+                className={`group relative inline-flex items-center h-12 px-6 rounded-full font-display font-medium overflow-hidden border transition-colors duration-300 hover:border-white ${
+                  darkMode ? 'border-white/20' : 'border-slate-300'
+                }`}
+              >
+                <span className={`relative z-10 transition-colors duration-300 group-hover:text-white ${darkMode ? 'text-white' : 'text-slate-900'}`}>Resume</span>
+                <span className="absolute inset-0 bg-[#8B5CF6] translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out rounded-full" />
+              </a>
+            )}
           </div>
         </Container>
         </nav>
