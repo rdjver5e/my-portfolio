@@ -87,21 +87,51 @@ function Wheel({ darkMode, reduced }: { darkMode: boolean; reduced: boolean }) {
     if (!tiles.length) return
 
     const N = tiles.length
-    const dims = { rx: 310, ry: 0, depth: 0, stretchMax: 200, restTiltX: 16, mobile: false, scale: 1 }
+    const dims = { rx: 310, ry: 0, depth: 0, stretchMax: 200, restTiltX: 16, mobile: false, scale: 1, perspectiveBase: 1000 }
     const measure = () => {
       const w = window.innerWidth
+      const h = window.innerHeight
       const mobile = w < 768
       const tablet = w >= 768 && w < 1024
+      const isLandscapeMobile = mobile && h <= 500 && w > h
+      const clampM = (v: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, v))
       dims.mobile = mobile
-      dims.rx = mobile ? 215 : tablet ? 215 : 310
+      if (mobile) {
+        if (isLandscapeMobile) {
+          // Landscape phones: height is the limiter → fit by min(availableWidth, availableHeight*1.8)
+          const usableW = w - 32
+          const usableH = h - 24
+          const constraint = Math.min(usableW, usableH * 1.8)
+          dims.rx = clampM(Math.round(constraint * 0.27), 68, 135)
+          dims.scale = clampM((Math.min(usableW, usableH * 2) / 320) * 0.58, 0.56, 0.66)
+          dims.stretchMax = 65
+          dims.restTiltX = 10
+          dims.perspectiveBase = 680
+        } else {
+          // Portrait phones 320-430: scale proportionally to usable width
+          const usableW = w - 32
+          dims.rx = clampM(Math.round(usableW * 0.33), 92, 148)
+          dims.scale = clampM((usableW / 320) * 0.60, 0.60, 0.70)
+          dims.stretchMax = 80
+          dims.restTiltX = 11
+          dims.perspectiveBase = 750
+        }
+      } else if (tablet) {
+        dims.rx = 215
+        dims.scale = 0.82
+        dims.stretchMax = 130
+        dims.restTiltX = 15
+        dims.perspectiveBase = 900
+      } else {
+        dims.rx = 310
+        dims.scale = 1
+        dims.stretchMax = 200
+        dims.restTiltX = 16
+        dims.perspectiveBase = 1000
+      }
       dims.ry = dims.rx * 0.45
       dims.depth = dims.rx * 0.55
-      dims.stretchMax = mobile ? 140 : tablet ? 130 : 200
-      dims.restTiltX = mobile ? 14 : tablet ? 15 : 16
-      dims.scale = mobile ? 0.82 : tablet ? 0.82 : 1
-      if (!st.down) {
-        st.tTiltX = dims.restTiltX
-      }
+      if (!st.down) st.tTiltX = dims.restTiltX
     }
     tiles.forEach((el) => gsap.set(el, { xPercent: -50, yPercent: -50 }))
 
@@ -173,10 +203,10 @@ function Wheel({ darkMode, reduced }: { darkMode: boolean; reduced: boolean }) {
         }
       }
 
-      gsap.set(stage, { perspective: 1000 - st.stretch * 0.35 })
+      gsap.set(stage, { perspective: dims.perspectiveBase - st.stretch * 0.35 })
       gsap.set(ring, {
-        rotationX: clamp(st.ringX, -10, 34),
-        rotationY: clamp(st.ringY, -32, 32),
+        rotationX: clamp(st.ringX, dims.mobile ? -8 : -10, dims.mobile ? 28 : 34),
+        rotationY: clamp(st.ringY, dims.mobile ? -22 : -32, dims.mobile ? 22 : 32),
       })
 
       if (best !== st.active) {
@@ -240,11 +270,13 @@ function Wheel({ darkMode, reduced }: { darkMode: boolean; reduced: boolean }) {
       // Autonomous sway: the ring rocks side to side on its own —
       // right-side-up, then left-side-up, forever. Pointer input leans
       // on top of this motion instead of replacing it.
+      const swayY = dims.mobile ? 13 : SWAY_Y_AMP
+      const swayX = dims.mobile ? 4 : SWAY_X_AMP
       st.ringX =
         dims.restTiltX +
-        Math.sin(st.time * SWAY_X_FREQ + 1.3) * SWAY_X_AMP +
+        Math.sin(st.time * SWAY_X_FREQ + 1.3) * swayX +
         (st.tiltX - dims.restTiltX)
-      st.ringY = Math.sin(st.time * SWAY_Y_FREQ) * SWAY_Y_AMP + st.tiltY
+      st.ringY = Math.sin(st.time * SWAY_Y_FREQ) * swayY + st.tiltY
       // Scroll stretch eases back toward rest after scrolling stops.
       st.stretchTarget *= Math.exp(-dt * 2.5)
       if (st.stretchTarget < 0.5) st.stretchTarget = 0
@@ -270,8 +302,9 @@ function Wheel({ darkMode, reduced }: { darkMode: boolean; reduced: boolean }) {
       if (rect.width > 0 && rect.height > 0) {
         const nx = clamp((e.clientX - rect.left) / rect.width - 0.5, -0.5, 0.5)
         const ny = clamp((e.clientY - rect.top) / rect.height - 0.5, -0.5, 0.5)
-        st.tTiltY = nx * 16
-        st.tTiltX = dims.restTiltX - ny * 16
+        const tiltGain = dims.mobile ? 10 : 16
+        st.tTiltY = nx * tiltGain
+        st.tTiltX = dims.restTiltX - ny * tiltGain
       }
       if (!st.down) return
       // Bidirectional spin from any drag direction: pushing right or down
@@ -453,18 +486,18 @@ export default function WhatIBring({ darkMode = true }: { darkMode?: boolean }) 
       {/* ─── The wheel ─── */}
       <Wheel darkMode={darkMode} reduced={reduced} />
 
-      {/* ─── Resolve ─── */}
-      <div data-wheel-outro-wrap className="px-6 md:px-12 max-w-[1200px] mx-auto pt-16 md:pt-24 pb-16 md:pb-20 text-center">
+      {/* ─── Resolve ─── — MOBILE-ADAPTED: fits 320-430 without overflow, balanced wrap */}
+      <div data-wheel-outro-wrap className="px-5 md:px-12 max-w-[1200px] mx-auto pt-10 md:pt-24 pb-10 md:pb-20 text-center overflow-hidden">
         <p
           data-wheel-outro
-          className="text-[clamp(2.2rem,7vw,5.5rem)] leading-[1.02] tracking-tight"
+          className="mx-auto max-w-[13ch] sm:max-w-[14ch] md:max-w-none text-[clamp(1.65rem,7vw,5.5rem)] sm:text-[clamp(1.85rem,7.5vw,5.5rem)] leading-[0.92] tracking-tight text-balance break-words"
           style={{ fontFamily: 'var(--font-anton)', color: textMain }}
         >
           GIVE ME THE PROBLEM.
         </p>
         <p
           data-wheel-outro
-          className="mt-8 text-[clamp(0.95rem,1.6vw,1.15rem)] leading-[1.7]"
+          className="mx-auto mt-5 md:mt-8 max-w-[24ch] sm:max-w-[26ch] md:max-w-[48ch] text-[clamp(0.875rem,3.6vw,1.15rem)] leading-[1.65] md:leading-[1.7] text-balance"
           style={{ fontFamily: F, color: textMuted }}
         >
           Design it. Build it. Break it. Learn what&rsquo;s missing. Build it better.

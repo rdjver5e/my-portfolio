@@ -146,8 +146,7 @@ export default function Experience({ darkMode = true }: { darkMode?: boolean }) 
         <div className="absolute left-0 right-0 top-0 z-20" style={{ background: bg }}>
           <div className="mx-auto flex max-w-[1400px] items-center justify-between px-6 md:px-10 py-8">
             <div>
-              <p className="text-[11px] tracking-[0.32em] uppercase" style={{ fontFamily: F, color: muted }}>05 — Experience</p>
-              <h2 className="mt-2 text-[clamp(2rem,4vw,2.8rem)] font-light leading-none tracking-[-0.02em]" style={{ fontFamily: F, color: ink }}>
+              <h2 className="text-[clamp(2rem,4vw,2.8rem)] font-light leading-none tracking-[-0.02em]" style={{ fontFamily: F, color: ink }}>
                 The road, <span className="font-semibold">so far.</span>
               </h2>
             </div>
@@ -183,9 +182,7 @@ export default function Experience({ darkMode = true }: { darkMode?: boolean }) 
           </div>
         </div>
 
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2 md:hidden text-[11px] tracking-[0.2em] uppercase" style={{ fontFamily: F, color: muted }}>
-          <span className="h-px w-8" style={{ background: faint }} /> Drag horizontally <span className="h-px w-8" style={{ background: faint }} />
-        </div>
+
       </div>
     </section>
   )

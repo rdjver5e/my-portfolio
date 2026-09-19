@@ -246,22 +246,13 @@ const DESKTOP: Record<string, Trip> = {
   main: { start: { x: 0, y: 0, z: 150, s: 0.5, o: 1 },        mid: { x: 0, y: 0, z: 150, s: 1.5, o: 1 },      end: { x: 0, y: 0, z: 150, s: 0.5, o: 1 } },
 }
 
-const TABLET: Record<string, Trip> = {
-  aeon: { start: { x: -250, y: -90, z: -24, s: 1, o: 1 },    mid: { x: -235, y: -120, z: -55, s: 1, o: 1 },   end: { x: -90, y: -80, z: -38, s: 1, o: 1 } },
-  cc:   { start: { x: 190, y: -90, z: -18, s: 1, o: 1 },     mid: { x: 235, y: -120, z: -60, s: 1, o: 1 },   end: { x: 100, y: 40, z: -42, s: 1, o: 1 } },
-  rivo: { start: { x: -247, y: 28, z: -17, s: 1, o: 1 },     mid: { x: -258, y: 88, z: -65, s: 1, o: 1 },    end: { x: -76, y: 88, z: -46, s: 1, o: 1 } },
-  sl:   { start: { x: -183, y: 96, z: 18, s: 1, o: 1 },      mid: { x: 258, y: 96, z: -70, s: 1, o: 1 },     end: { x: 84, y: -48, z: -50, s: 1, o: 1 } },
-  tn:   { start: { x: 178, y: 44, z: 40, s: 1, o: 1 },       mid: { x: -106, y: 180, z: -75, s: 1, o: 1 },   end: { x: -50, y: -94, z: -55, s: 1, o: 1 } },
-  main: { start: { x: 0, y: 0, z: 150, s: 0.5, o: 1 },       mid: { x: 0, y: 0, z: 150, s: 1.35, o: 1 },     end: { x: 0, y: 0, z: 150, s: 0.5, o: 1 } },
-}
-
 const MOBILE: Record<string, Trip> = {
-  aeon: { start: { x: -92, y: -210, z: -26, s: 0.8, o: 1 },  mid: { x: -115, y: -98, z: -50, s: 0.8, o: 1 }, end: { x: -72, y: -90, z: -40, s: 0.8, o: 1 } },
-  cc:   { start: { x: 92, y: -210, z: -20, s: 0.8, o: 1 },   mid: { x: 115, y: -98, z: -52, s: 0.8, o: 1 },  end: { x: 72, y: -90, z: -40, s: 0.8, o: 1 } },
-  rivo: { start: { x: -98, y: 220, z: -10, s: 0.8, o: 1 },   mid: { x: -128, y: 108, z: -54, s: 0.8, o: 1 },  end: { x: -76, y: 98, z: -35, s: 0.8, o: 1 } },
-  sl:   { start: { x: 98, y: 220, z: 10, s: 0.8, o: 1 },     mid: { x: 128, y: 108, z: -56, s: 0.8, o: 1 },   end: { x: 76, y: 98, z: -35, s: 0.8, o: 1 } },
-  tn:   { start: { x: 0, y: 250, z: 30, s: 0.75, o: 1 },      mid: { x: -82, y: 165, z: -60, s: 0.75, o: 1 },  end: { x: -42, y: 118, z: -50, s: 0.75, o: 1 } },
-  main: { start: { x: 0, y: 0, z: 150, s: 0.5, o: 1 },        mid: { x: 0, y: 0, z: 150, s: 1.25, o: 1 },     end: { x: 0, y: 0, z: 150, s: 0.5, o: 1 } },
+  aeon: { start: { x: -74, y: -135, z: -20, s: 0.70, o: 1 },  mid: { x: -96, y: -74, z: -50, s: 0.70, o: 1 }, end: { x: -60, y: -62, z: -40, s: 0.70, o: 1 } },
+  cc:   { start: { x: 74, y: -135, z: -20, s: 0.70, o: 1 },   mid: { x: 96, y: -74, z: -52, s: 0.70, o: 1 },  end: { x: 60, y: -62, z: -40, s: 0.70, o: 1 } },
+  rivo: { start: { x: -78, y: 140, z: -10, s: 0.70, o: 1 },   mid: { x: -102, y: 78, z: -54, s: 0.70, o: 1 },  end: { x: -62, y: 70, z: -35, s: 0.70, o: 1 } },
+  sl:   { start: { x: 78, y: 140, z: 10, s: 0.70, o: 1 },     mid: { x: 102, y: 78, z: -56, s: 0.70, o: 1 },   end: { x: 62, y: 70, z: -35, s: 0.70, o: 1 } },
+  tn:   { start: { x: 0, y: 165, z: 30, s: 0.66, o: 1 },      mid: { x: -62, y: 115, z: -60, s: 0.66, o: 1 },  end: { x: -34, y: 84, z: -50, s: 0.66, o: 1 } },
+  main: { start: { x: 0, y: 0, z: 150, s: 0.48, o: 1 },        mid: { x: 0, y: 0, z: 150, s: 1.08, o: 1 },     end: { x: 0, y: 0, z: 150, s: 0.48, o: 1 } },
 }
 
 const CARD_IDS = ['aeon', 'cc', 'rivo', 'sl', 'tn', 'main']
@@ -286,27 +277,22 @@ export default function SelectedWork({ darkMode = true }: { darkMode?: boolean }
     if (el) cardSizeRef.current[id] = el
   }
 
-  // Responsive card sizes — computed on mount and resize
+  // Responsive sizing — balanced mobile size (smooth + visible) — reverted from oversize 168 that caused jank
   useEffect(() => {
-    const sizes: Record<string, [number, number, string, string]> = {
-      aeon: [200, 118, '4/3', '38'],
-      cc:   [134, 78, '3/4', '26'],
-      rivo: [134, 78, '3/4', '26'],
-      sl:   [124, 72, '3/4', '25'],
-      tn:   [176, 102, '3/2', '34'],
-      main: [560, 320, '16/10', '58'],
+    const sizes: Record<string, [string, string]> = {
+      aeon: ['min(200px,46vw)', 'min(145px,36vw)'],
+      cc:   ['min(134px,30vw)', 'min(102px,25vw)'],
+      rivo: ['min(134px,30vw)', 'min(102px,25vw)'],
+      sl:   ['min(124px,29vw)', 'min(96px,24vw)'],
+      tn:   ['min(176px,41vw)', 'min(128px,31vw)'],
+      main: ['min(560px,64vw)', 'min(285px,65vw)'],
     }
     const apply = () => {
-      const w = window.innerWidth
+      const isMobile = window.innerWidth < 768
       Object.entries(cardSizeRef.current).forEach(([id, el]) => {
         const s = sizes[id]
         if (!s) return
-        const [desk, mob, , vwMax] = s
-        let px: number
-        if (w < 768) px = mob
-        else if (w < 1024) px = Math.round(desk * 0.78)
-        else px = desk
-        el.style.width = `min(${px}px, ${vwMax}vw)`
+        el.style.width = isMobile ? s[1] : s[0]
       })
     }
     apply()
@@ -330,8 +316,7 @@ export default function SelectedWork({ darkMode = true }: { darkMode?: boolean }
         })
       }
 
-      const w = window.innerWidth
-      const table = w < 768 ? MOBILE : w < 1024 ? TABLET : DESKTOP
+      const table = window.innerWidth < 768 ? MOBILE : DESKTOP
 
       if (reduced) {
         gsap.set(space, { scale: 1 })
@@ -385,9 +370,8 @@ export default function SelectedWork({ darkMode = true }: { darkMode?: boolean }
         return tl
       }
 
-      mm.add('(min-width: 1024px)', () => build(DESKTOP, { from: 4, to: 4 }))
-      mm.add('(min-width: 768px) and (max-width: 1023px)', () => build(TABLET, { from: 3, to: 4 }))
-      mm.add('(max-width: 767px)', () => build(MOBILE, { from: 2.5, to: 4 }))
+      mm.add('(min-width: 768px)', () => build(DESKTOP, { from: 4, to: 4 }))
+      mm.add('(max-width: 767px)', () => build(MOBILE, { from: 1.5, to: 2.2 }))
       highlight(0)
     }, sectionRef)
 

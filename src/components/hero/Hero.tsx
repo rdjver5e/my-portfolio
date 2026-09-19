@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { motion } from 'framer-motion'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -120,8 +121,50 @@ export default function Hero({ darkMode }: { darkMode: boolean }) {
       aria-label="Hero — introduction"
       className={`relative min-h-[100dvh] min-h-screen flex flex-col justify-center overflow-x-clip overflow-y-visible transition-colors duration-300 ${darkMode ? 'bg-[#0A0A0A]' : 'bg-white'} pb-10 md:pb-16`}
     >
-      {/* Content — centered block, left-aligned text */}
-      <div className="relative z-10 w-full max-w-[1200px] md:max-w-[860px] lg:max-w-[1200px] mx-auto px-5 sm:px-6 md:px-12 lg:px-16 mt-12 pb-6 overflow-x-clip">
+      {/* ========== MOBILE ONLY — EXACT IMAGE LAYOUT (visible equal gutters, centered 320-430) ========== */}
+      <div className="flex md:hidden relative z-10 w-full flex-col min-h-[100svh] min-h-[100dvh] px-8 pt-[8.5rem] pb-10 overflow-x-clip">
+        <div className="w-full max-w-[320px] mx-auto flex flex-col">
+        <motion.p initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.1 }} className="font-display text-[15px] tracking-[0.22em] uppercase" style={{ color: '#9CA3AF' }}>
+          HELLO, I&apos;M
+        </motion.p>
+
+        {/* Overlapping name — fitted so equal space remains on both sides */}
+        <div className="mt-2 relative w-full">
+          <motion.h1 initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.75, ease: [0.16,1,0.3,1], delay: 0.16 }} className="relative z-10 font-anton leading-[0.85] tracking-[-0.01em] whitespace-nowrap text-[6.5rem]" style={{ color: '#FFFFFF' }}>
+            RISHAV
+          </motion.h1>
+          <motion.h1 initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.75, ease: [0.16,1,0.3,1], delay: 0.26 }} className="relative z-0 font-anton leading-[0.85] tracking-[-0.01em] whitespace-nowrap text-[6.2rem] mt-[-0.22em] ml-[140px]" style={{ color: 'transparent', WebkitTextStroke: '1.2px rgba(255,255,255,0.38)' }}>
+            DAS
+          </motion.h1>
+        </div>
+
+        <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.38 }} className="mt-6 font-display whitespace-nowrap text-[clamp(15px,4.6vw,19px)] leading-[1.5] tracking-[-0.01em]" style={{ color: '#FFFFFF' }}>
+          Crafting interfaces <span className="font-medium" style={{ color: '#FFFFFF' }}>people remember.</span>
+        </motion.p>
+
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5, delay: 0.48 }} className="mt-5 flex items-center" aria-live="polite" aria-atomic="true">
+          <span className="font-display text-[17px] font-normal tracking-[0.01em] transition-colors duration-300" style={{ color: '#E8EAED' }}>{roles[activeRole]}</span>
+        </motion.div>
+        </div>
+
+        {/* Centered CTA stack — exactly like reference */}
+        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.56 }} className="mt-10 flex w-full max-w-[320px] mx-auto flex-col items-center gap-3">
+          <a href="#projects" aria-label="View projects" className="group relative inline-flex w-[248px] items-center justify-around gap-4 h-[56px] pl-8 pr-3 rounded-full bg-white overflow-hidden">
+            <span className="font-display font-medium text-[17px] text-[#0A0A0A] relative z-10">Let&apos;s Connect</span>
+            <span className="relative z-10 flex h-[42px] w-[42px] items-center justify-center rounded-full text-white transition-transform duration-300 group-hover:rotate-[-35deg]" style={{ background: '#0B1023' }}>
+              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.2}><path strokeLinecap="round" strokeLinejoin="round" d="M7 17L17 7M17 7H7m10 0v10" /></svg>
+            </span>
+            <span className="absolute inset-0 bg-[#8B5CF6] translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out rounded-full" aria-hidden="true" />
+          </a>
+          <span className="inline-flex items-center gap-2.5">
+            <span className="flex items-center justify-center h-4 w-4 rounded-full border border-[#43fa47]"><span className="h-2 w-2 rounded-full bg-[#43fa47]"></span></span>
+            <span className="font-display text-[13px] font-normal tracking-[0.04em]" style={{ color: '#B9BDC2' }}>Available for work</span>
+          </span>
+        </motion.div>
+      </div>
+
+      {/* ========== DESKTOP / TABLET — original hero (hidden on mobile) ========== */}
+      <div className="hidden md:block relative z-10 w-full max-w-[1200px] md:max-w-[860px] lg:max-w-[1200px] mx-auto px-5 sm:px-6 md:px-12 lg:px-16 mt-12 pb-6 overflow-x-clip">
         {/* Greeting */}
         <p
           ref={greetingRef}
