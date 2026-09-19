@@ -124,33 +124,9 @@ export default function Contact({ darkMode = true }: { darkMode?: boolean }) {
         <p
           ref={subRef}
           className="mx-auto mt-6 max-w-[560px] text-[15px] leading-[1.7] opacity-0 md:text-[17px]"
-          style={{ fontFamily: F, color: muted }}
+          style={{ fontFamily: F, color: muted, whiteSpace: 'pre-wrap' }}
         >
-          Open to{' '}
-          <span className="inline-flex align-middle">
-            <span className="inline-flex h-[1.35em] w-[1.35em] items-center justify-center rounded-lg text-[0.95em] leading-none shadow-[0_2px_10px_rgba(0,0,0,0.12)]" style={{ background: '#fff', border: '1px solid rgba(0,0,0,0.08)' }}>
-              <img src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Laptop/3D/laptop_3d.png" alt="" className="h-[0.95em] w-[0.95em] object-contain" loading="lazy" />
-            </span>
-          </span>{' '}
-          frontend & React,{' '}
-          <span className="inline-flex align-middle">
-            <span className="inline-flex h-[1.35em] w-[1.35em] items-center justify-center rounded-lg text-[0.95em] leading-none shadow-[0_2px_10px_rgba(0,0,0,0.12)]" style={{ background: '#fff', border: '1px solid rgba(0,0,0,0.08)' }}>
-              <img src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Artist%20palette/3D/artist-palette_3d.png" alt="" className="h-[0.95em] w-[0.95em] object-contain" loading="lazy" />
-            </span>
-          </span>{' '}
-          UI/UX & Framer,{' '}
-          <span className="inline-flex align-middle">
-            <span className="inline-flex h-[1.35em] w-[1.35em] items-center justify-center rounded-lg text-[0.95em] leading-none shadow-[0_2px_10px_rgba(0,0,0,0.12)]" style={{ background: '#fff', border: '1px solid rgba(0,0,0,0.08)' }}>
-              <img src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Sparkles/3D/sparkles_3d.png" alt="" className="h-[0.95em] w-[0.95em] object-contain" loading="lazy" />
-            </span>
-          </span>{' '}
-          motion & GSAP — or just a{' '}
-          <span className="inline-flex align-middle">
-            <span className="inline-flex h-[1.35em] w-[1.35em] items-center justify-center rounded-lg text-[0.95em] leading-none shadow-[0_2px_10px_rgba(0,0,0,0.12)]" style={{ background: '#fff', border: '1px solid rgba(0,0,0,0.08)' }}>
-              <img src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Hot%20beverage/3D/hot-beverage_3d.png" alt="" className="h-[0.95em] w-[0.95em] object-contain" loading="lazy" />
-            </span>
-          </span>{' '}
-          chat over coffee.
+          Open to&nbsp;&nbsp;<span className="text-[1.25em] align-middle" style={{ filter: 'drop-shadow(0 0 8px rgba(139,92,246,0.45)) drop-shadow(0 0 14px rgba(139,92,246,0.25))' }}>💻</span> frontend & React, <span className="text-[1.25em] align-middle" style={{ filter: 'drop-shadow(0 0 8px rgba(139,92,246,0.45)) drop-shadow(0 0 14px rgba(139,92,246,0.25))' }}>🎨</span> UI/UX & Framer, <span className="text-[1.25em] align-middle" style={{ filter: 'drop-shadow(0 0 10px rgba(251,191,36,0.45)) drop-shadow(0 0 16px rgba(139,92,246,0.3))' }}>✨</span> motion & GSAP or just a&nbsp;&nbsp;<span className="text-[1.25em] align-middle" style={{ filter: 'drop-shadow(0 0 8px rgba(245,158,11,0.4)) drop-shadow(0 0 14px rgba(139,92,246,0.2))' }}>☕</span> chat over coffee.
         </p>
 
         {/* CTA — same as Let's Connect (Hero) */}
@@ -159,6 +135,7 @@ export default function Contact({ darkMode = true }: { darkMode?: boolean }) {
             ref={ctaRef}
             href="mailto:hello@rdjverse.com"
             aria-label="Contact via email"
+            data-tablet="btn-lg"
             className={`group relative inline-flex items-center gap-3 h-16 px-9 rounded-full bg-white font-display font-medium text-[20px] overflow-hidden opacity-0 ${darkMode ? 'border border-white/20' : 'border border-slate-300'}`}
           >
             <span className="relative z-10 flex items-center gap-3">
@@ -172,7 +149,7 @@ export default function Contact({ darkMode = true }: { darkMode?: boolean }) {
             <span className="absolute inset-0 bg-[#8B5CF6] translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out rounded-full" />
           </a>
           <p className="text-[12px] tracking-[0.08em]" style={{ fontFamily: F, color: darkMode ? 'rgba(245,245,245,0.72)' : 'rgba(19,19,19,0.62)' }}>
-            or connect through —
+            or connect through
           </p>
         </div>
 

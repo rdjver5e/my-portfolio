@@ -118,24 +118,24 @@ export default function Hero({ darkMode }: { darkMode: boolean }) {
     <section
       ref={sectionRef}
       aria-label="Hero — introduction"
-      className={`relative min-h-screen min-h-[600px] flex flex-col justify-center overflow-visible transition-colors duration-300 ${darkMode ? 'bg-[#0A0A0A]' : 'bg-white'} pb-10 md:pb-16`}
+      className={`relative min-h-[100dvh] min-h-screen flex flex-col justify-center overflow-x-clip overflow-y-visible transition-colors duration-300 ${darkMode ? 'bg-[#0A0A0A]' : 'bg-white'} pb-10 md:pb-16`}
     >
       {/* Content — centered block, left-aligned text */}
-      <div className="relative z-10 w-full max-w-[1200px] mx-auto px-6 md:px-12 lg:px-16 mt-12 pb-6">
+      <div className="relative z-10 w-full max-w-[1200px] md:max-w-[860px] lg:max-w-[1200px] mx-auto px-5 sm:px-6 md:px-12 lg:px-16 mt-12 pb-6 overflow-x-clip">
         {/* Greeting */}
         <p
           ref={greetingRef}
-          className={`font-display text-[clamp(1.5rem,2.5vw,2.25rem)] font-light tracking-tight mb-2 opacity-0 transition-colors duration-300 ${darkMode ? 'text-[#F5F5F5]' : 'text-slate-900'}`}
+          className={`font-display text-[clamp(1.25rem,2.5vw,2.25rem)] font-light tracking-tight mb-2 opacity-0 transition-colors duration-300 ${darkMode ? 'text-[#F5F5F5]' : 'text-slate-900'}`}
         >
           Hello, I'm
         </p>
 
         {/* Name composition — RISHAV + DAS */}
-        <div className="relative">
+        <div className="relative overflow-x-clip">
           {/* RISHAV — dominant anchor */}
           <h1
             ref={nameLine1Ref}
-            className={`relative z-10 font-anton leading-[0.82] tracking-[-0.01em] text-[clamp(5rem,25vw,25rem)] whitespace-nowrap opacity-0 transition-colors duration-300 ${darkMode ? 'text-[#F5F5F5]' : 'text-slate-900'}`}
+            className={`relative z-10 font-anton leading-[0.82] tracking-[-0.01em] text-[clamp(3.5rem,22vw,25rem)] sm:text-[clamp(4rem,25vw,25rem)] whitespace-nowrap opacity-0 transition-colors duration-300 ${darkMode ? 'text-[#F5F5F5]' : 'text-slate-900'}`}
           >
             RISHAV
           </h1>
@@ -143,7 +143,7 @@ export default function Hero({ darkMode }: { darkMode: boolean }) {
           {/* DAS — oversized outlined, overlaps lower-right, extends past viewport */}
           <h1
             ref={nameLine2Ref}
-            className="font-anton leading-[0.82] tracking-[-0.01em] text-[clamp(5rem,22vw,22rem)] whitespace-nowrap opacity-0 absolute left-[53%] top-[77%] z-10"
+            className="font-anton leading-[0.82] tracking-[-0.01em] text-[clamp(3.5rem,20vw,22rem)] sm:text-[clamp(5rem,22vw,22rem)] whitespace-nowrap opacity-0 absolute left-[52%] sm:left-[53%] top-[77%] z-10"
             style={{
               color: 'transparent',
               WebkitTextStroke: darkMode ? '1.5px rgba(255,255,255,0.3)' : '1.5px rgba(0,0,0,0.15)',
@@ -196,25 +196,19 @@ export default function Hero({ darkMode }: { darkMode: boolean }) {
         </div>
 
         {/* Action row — CTA + Availability */}
-        <div ref={ctaGroupRef} className="flex flex-wrap items-center gap-6 md:gap-8 opacity-0">
+        <div ref={ctaGroupRef} className="flex flex-wrap items-center gap-4 sm:gap-6 md:gap-8 opacity-0">
           <a
             href="#projects"
             aria-label="View projects"
-            className={`group relative inline-flex items-center gap-3 h-16 px-9 rounded-full bg-white font-display font-medium text-[20px] overflow-hidden ${
-              darkMode
-                ? 'border border-white/20'
-                : 'border border-slate-300'
+            data-tablet="btn-lg"
+            className={`group relative inline-flex items-center gap-2 sm:gap-3 h-12 sm:h-14 md:h-16 px-6 sm:px-7 md:px-9 rounded-full bg-white font-display font-medium text-[15px] sm:text-[16px] md:text-[20px] overflow-hidden ${
+              darkMode ? 'border border-white/20' : 'border border-slate-300'
             }`}
           >
-            <span className="relative z-10 flex items-center gap-3">
+            <span className="relative z-10 flex items-center gap-2 sm:gap-3">
               <span className="text-slate-900 group-hover:text-white transition-colors duration-300">Let's Connect</span>
-              <span className="flex items-center justify-center w-8 h-8 rounded-full border-2 border-slate-900 group-hover:border-white transition-all duration-300 group-hover:rotate-[-45deg]">
-                <svg
-                  className="w-3.5 h-3.5 text-slate-900 group-hover:text-white transition-colors duration-300"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
+              <span className="flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 rounded-full border-2 border-slate-900 group-hover:border-white transition-all duration-300 group-hover:rotate-[-45deg]">
+                <svg className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-slate-900 group-hover:text-white transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
               </span>
@@ -222,9 +216,9 @@ export default function Hero({ darkMode }: { darkMode: boolean }) {
             <span className="absolute inset-0 bg-[#8B5CF6] translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out rounded-full" />
           </a>
 
-          <div className={`flex items-center gap-2.5 font-display text-[20px] font-medium tracking-[0.04em] transition-colors duration-300 ${darkMode ? 'text-white' : 'text-slate-800'}`}>
-            <span className="flex items-center justify-center h-4 w-4 rounded-full border border-[#43fa47]">
-              <span className="h-2 w-2 rounded-full bg-[#43fa47]" />
+          <div data-tablet="avail" className={`flex items-center gap-2 sm:gap-2.5 font-display text-[14px] sm:text-[15px] md:text-[20px] font-medium tracking-[0.04em] transition-colors duration-300 ${darkMode ? 'text-white' : 'text-slate-800'}`}>
+            <span className="flex items-center justify-center h-3.5 w-3.5 sm:h-4 sm:w-4 rounded-full border border-[#43fa47]">
+              <span className="h-1.5 w-1.5 sm:h-2 sm:w-2 rounded-full bg-[#43fa47]" />
             </span>
             Available for work
           </div>

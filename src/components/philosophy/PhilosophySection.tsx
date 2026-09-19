@@ -125,6 +125,7 @@ export default function PhilosophySection({ darkMode = true }: { darkMode?: bool
       >
         <div
           ref={paragraphRef}
+          data-tablet="manifesto"
           className="text-center transition-colors duration-300"
           style={{
             fontFamily: 'var(--font-display)',

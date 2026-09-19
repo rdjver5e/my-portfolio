@@ -79,7 +79,7 @@ export default function FloatingNavbar({ darkMode, onToggleDarkMode, isResumePag
   return (
     <>
       {/* Header */}
-      <header className="fixed top-0 left-0 right-0 z-50 py-8" role="banner">
+      <header className="fixed top-0 left-0 right-0 z-50 py-4 sm:py-6 md:py-8" role="banner">
         <nav aria-label="Main navigation">
           <Container>
           <div className="relative flex items-center justify-between">
@@ -89,7 +89,8 @@ export default function FloatingNavbar({ darkMode, onToggleDarkMode, isResumePag
             {/* Floating Pill - Centered */}
             <div className="absolute left-1/2 -translate-x-1/2 rounded-full">
               <motion.div
-                className="relative z-10 flex items-center gap-2 px-3 h-[56px] rounded-full bg-[#1a1a1a] border border-white/5 backdrop-blur-xl shadow-2xl overflow-hidden"
+                data-tablet="pill"
+                className="relative z-10 flex items-center gap-1 sm:gap-2 px-2 sm:px-3 h-[48px] sm:h-[56px] rounded-full bg-[#1a1a1a] border border-white/5 backdrop-blur-xl shadow-2xl overflow-hidden"
                 layout
                 transition={{ type: 'spring', stiffness: 300, damping: 30 }}
               >
@@ -97,7 +98,7 @@ export default function FloatingNavbar({ darkMode, onToggleDarkMode, isResumePag
                 <AnimatedHamburger isOpen={isOpen} onClick={handleToggle} />
 
                 {/* Menu / Close Text */}
-                <span className="relative text-sm md:text-base lg:text-[18px] font-medium min-w-[44px] md:min-w-[52px] lg:min-w-[60px]">
+                <span className="relative text-xs sm:text-sm md:text-base lg:text-[18px] font-medium min-w-[36px] sm:min-w-[44px] md:min-w-[52px] lg:min-w-[60px]">
                   <AnimatePresence mode="wait">
                     <motion.span
                       key={isOpen ? 'close' : 'menu'}
@@ -121,21 +122,21 @@ export default function FloatingNavbar({ darkMode, onToggleDarkMode, isResumePag
 
               {/* Expanded Menu Panel */}
               <AnimatePresence>
-                {isOpen && (
-                  <>
-                    {/* Backdrop */}
-                    <motion.div
-                      className="fixed inset-0 bg-black/20 backdrop-blur-sm -z-10"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 0 }}
-                      exit={{ opacity: 0 }}
-                      onClick={handleBackdropClick}
-                      aria-hidden="true"
-                    />
+              {isOpen && (
+                <>
+                  {/* Backdrop */}
+                  <motion.div
+                    className="fixed inset-0 bg-black/20 backdrop-blur-sm -z-10"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 0 }}
+                    exit={{ opacity: 0 }}
+                    onClick={handleBackdropClick}
+                    aria-hidden="true"
+                  />
 
-                    {/* Menu Panel */}
-                    <motion.div
-                      className="absolute left-1/2 -translate-x-1/2 -top-[15px] w-[90vw] max-w-[280px] bg-[#ececec] rounded-[40px] p-6 pb-10 overflow-hidden origin-top"
+                  {/* Menu Panel */}
+                  <motion.div
+                    className="absolute left-1/2 -translate-x-1/2 -top-[10px] sm:-top-[15px] w-[65vw] max-w-[280px] bg-[#ececec] rounded-[32px] sm:rounded-[40px] p-5 sm:p-6 pb-8 sm:pb-10 overflow-x-hidden overflow-y-auto overscroll-contain origin-top max-h-[78dvh] sm:max-h-[85dvh]"
                       role="menu"
                       initial={{ opacity: 0, scale: 0.3, y: -10 }}
                       animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -163,7 +164,7 @@ export default function FloatingNavbar({ darkMode, onToggleDarkMode, isResumePag
                               <motion.a
                                 key={item.label}
                                 href={item.href}
-                                className="text-[1.8rem] font-semibold text-slate-900 hover:text-slate-600 transition-colors"
+                                className="text-[1.5rem] sm:text-[1.8rem] font-semibold text-slate-900 hover:text-slate-600 transition-colors"
                                 initial={{ opacity: 0, x: -15 }}
                                 animate={{ opacity: 1, x: 0 }}
                                 transition={{ delay: index * 0.08, type: 'spring', stiffness: 200, damping: 20 }}
@@ -179,7 +180,7 @@ export default function FloatingNavbar({ darkMode, onToggleDarkMode, isResumePag
                                 href={cvPdf}
                                 download="RishavDas_CV.pdf"
                                 onClick={() => setIsOpen(false)}
-                                className="text-[1.8rem] font-semibold text-slate-900 hover:text-slate-600 transition-colors md:hidden text-left"
+                                className="text-[1.5rem] sm:text-[1.8rem] font-semibold text-slate-900 hover:text-slate-600 transition-colors md:hidden text-left"
                                 initial={{ opacity: 0, x: -15 }}
                                 animate={{ opacity: 1, x: 0 }}
                                 transition={{ delay: menuItems.length * 0.08, type: 'spring', stiffness: 200, damping: 20 }}
@@ -191,7 +192,7 @@ export default function FloatingNavbar({ darkMode, onToggleDarkMode, isResumePag
                             ) : (
                               <motion.a
                                 href="#resume"
-                                className="text-[1.8rem] font-semibold text-slate-900 hover:text-slate-600 transition-colors md:hidden"
+                                className="text-[1.5rem] sm:text-[1.8rem] font-semibold text-slate-900 hover:text-slate-600 transition-colors md:hidden"
                                 initial={{ opacity: 0, x: -15 }}
                                 animate={{ opacity: 1, x: 0 }}
                                 transition={{ delay: menuItems.length * 0.08, type: 'spring', stiffness: 200, damping: 20 }}
@@ -288,7 +289,8 @@ export default function FloatingNavbar({ darkMode, onToggleDarkMode, isResumePag
                 href={cvPdf}
                 download="RishavDas_CV.pdf"
                 aria-label="Download resume"
-                className={`group relative inline-flex items-center h-12 px-6 rounded-full font-display font-medium overflow-hidden border transition-colors duration-300 hover:border-white ${
+                data-tablet="btn-sm"
+                className={`group relative hidden md:inline-flex items-center h-12 px-6 rounded-full font-display font-medium overflow-hidden border transition-colors duration-300 hover:border-white ${
                   darkMode ? 'border-white/20' : 'border-slate-300'
                 }`}
               >
@@ -299,7 +301,8 @@ export default function FloatingNavbar({ darkMode, onToggleDarkMode, isResumePag
               <a
                 href="#resume"
                 aria-label="View resume"
-                className={`group relative inline-flex items-center h-12 px-6 rounded-full font-display font-medium overflow-hidden border transition-colors duration-300 hover:border-white ${
+                data-tablet="btn-sm"
+                className={`group relative hidden md:inline-flex items-center h-12 px-6 rounded-full font-display font-medium overflow-hidden border transition-colors duration-300 hover:border-white ${
                   darkMode ? 'border-white/20' : 'border-slate-300'
                 }`}
               >

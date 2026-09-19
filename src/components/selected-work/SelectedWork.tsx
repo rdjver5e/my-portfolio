@@ -246,12 +246,21 @@ const DESKTOP: Record<string, Trip> = {
   main: { start: { x: 0, y: 0, z: 150, s: 0.5, o: 1 },        mid: { x: 0, y: 0, z: 150, s: 1.5, o: 1 },      end: { x: 0, y: 0, z: 150, s: 0.5, o: 1 } },
 }
 
+const TABLET: Record<string, Trip> = {
+  aeon: { start: { x: -250, y: -90, z: -24, s: 1, o: 1 },    mid: { x: -235, y: -120, z: -55, s: 1, o: 1 },   end: { x: -90, y: -80, z: -38, s: 1, o: 1 } },
+  cc:   { start: { x: 190, y: -90, z: -18, s: 1, o: 1 },     mid: { x: 235, y: -120, z: -60, s: 1, o: 1 },   end: { x: 100, y: 40, z: -42, s: 1, o: 1 } },
+  rivo: { start: { x: -247, y: 28, z: -17, s: 1, o: 1 },     mid: { x: -258, y: 88, z: -65, s: 1, o: 1 },    end: { x: -76, y: 88, z: -46, s: 1, o: 1 } },
+  sl:   { start: { x: -183, y: 96, z: 18, s: 1, o: 1 },      mid: { x: 258, y: 96, z: -70, s: 1, o: 1 },     end: { x: 84, y: -48, z: -50, s: 1, o: 1 } },
+  tn:   { start: { x: 178, y: 44, z: 40, s: 1, o: 1 },       mid: { x: -106, y: 180, z: -75, s: 1, o: 1 },   end: { x: -50, y: -94, z: -55, s: 1, o: 1 } },
+  main: { start: { x: 0, y: 0, z: 150, s: 0.5, o: 1 },       mid: { x: 0, y: 0, z: 150, s: 1.35, o: 1 },     end: { x: 0, y: 0, z: 150, s: 0.5, o: 1 } },
+}
+
 const MOBILE: Record<string, Trip> = {
-  aeon: { start: { x: -110, y: -260, z: -20, s: 0.8, o: 1 },  mid: { x: -150, y: -120, z: -50, s: 0.8, o: 1 }, end: { x: -90, y: -110, z: -40, s: 0.8, o: 1 } },
-  cc:   { start: { x: 110, y: -260, z: -20, s: 0.8, o: 1 },   mid: { x: 150, y: -120, z: -52, s: 0.8, o: 1 },  end: { x: 90, y: -110, z: -40, s: 0.8, o: 1 } },
-  rivo: { start: { x: -125, y: 270, z: -10, s: 0.8, o: 1 },   mid: { x: -160, y: 130, z: -54, s: 0.8, o: 1 },  end: { x: -95, y: 120, z: -35, s: 0.8, o: 1 } },
-  sl:   { start: { x: 125, y: 270, z: 10, s: 0.8, o: 1 },     mid: { x: 160, y: 130, z: -56, s: 0.8, o: 1 },   end: { x: 95, y: 120, z: -35, s: 0.8, o: 1 } },
-  tn:   { start: { x: 0, y: 300, z: 30, s: 0.75, o: 1 },      mid: { x: -100, y: 200, z: -60, s: 0.75, o: 1 },  end: { x: -50, y: 140, z: -50, s: 0.75, o: 1 } },
+  aeon: { start: { x: -92, y: -210, z: -26, s: 0.8, o: 1 },  mid: { x: -115, y: -98, z: -50, s: 0.8, o: 1 }, end: { x: -72, y: -90, z: -40, s: 0.8, o: 1 } },
+  cc:   { start: { x: 92, y: -210, z: -20, s: 0.8, o: 1 },   mid: { x: 115, y: -98, z: -52, s: 0.8, o: 1 },  end: { x: 72, y: -90, z: -40, s: 0.8, o: 1 } },
+  rivo: { start: { x: -98, y: 220, z: -10, s: 0.8, o: 1 },   mid: { x: -128, y: 108, z: -54, s: 0.8, o: 1 },  end: { x: -76, y: 98, z: -35, s: 0.8, o: 1 } },
+  sl:   { start: { x: 98, y: 220, z: 10, s: 0.8, o: 1 },     mid: { x: 128, y: 108, z: -56, s: 0.8, o: 1 },   end: { x: 76, y: 98, z: -35, s: 0.8, o: 1 } },
+  tn:   { start: { x: 0, y: 250, z: 30, s: 0.75, o: 1 },      mid: { x: -82, y: 165, z: -60, s: 0.75, o: 1 },  end: { x: -42, y: 118, z: -50, s: 0.75, o: 1 } },
   main: { start: { x: 0, y: 0, z: 150, s: 0.5, o: 1 },        mid: { x: 0, y: 0, z: 150, s: 1.25, o: 1 },     end: { x: 0, y: 0, z: 150, s: 0.5, o: 1 } },
 }
 
@@ -267,11 +276,43 @@ export default function SelectedWork({ darkMode = true }: { darkMode?: boolean }
   const innerRef = useRef<HTMLDivElement>(null)
   const rowRefs = useRef<(HTMLDivElement | null)[]>([])
   const cardRefs = useRef<Record<string, HTMLDivElement>>({})
+  const cardSizeRef = useRef<Record<string, HTMLDivElement>>({})
   const reduced = useReducedMotion()
 
   const setCardRef = (id: string) => (el: HTMLDivElement | null) => {
     if (el) cardRefs.current[id] = el
   }
+  const setCardSize = (id: string) => (el: HTMLDivElement | null) => {
+    if (el) cardSizeRef.current[id] = el
+  }
+
+  // Responsive card sizes — computed on mount and resize
+  useEffect(() => {
+    const sizes: Record<string, [number, number, string, string]> = {
+      aeon: [200, 118, '4/3', '38'],
+      cc:   [134, 78, '3/4', '26'],
+      rivo: [134, 78, '3/4', '26'],
+      sl:   [124, 72, '3/4', '25'],
+      tn:   [176, 102, '3/2', '34'],
+      main: [560, 320, '16/10', '58'],
+    }
+    const apply = () => {
+      const w = window.innerWidth
+      Object.entries(cardSizeRef.current).forEach(([id, el]) => {
+        const s = sizes[id]
+        if (!s) return
+        const [desk, mob, , vwMax] = s
+        let px: number
+        if (w < 768) px = mob
+        else if (w < 1024) px = Math.round(desk * 0.78)
+        else px = desk
+        el.style.width = `min(${px}px, ${vwMax}vw)`
+      })
+    }
+    apply()
+    window.addEventListener('resize', apply)
+    return () => window.removeEventListener('resize', apply)
+  }, [])
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -289,7 +330,8 @@ export default function SelectedWork({ darkMode = true }: { darkMode?: boolean }
         })
       }
 
-      const table = window.innerWidth < 768 ? MOBILE : DESKTOP
+      const w = window.innerWidth
+      const table = w < 768 ? MOBILE : w < 1024 ? TABLET : DESKTOP
 
       if (reduced) {
         gsap.set(space, { scale: 1 })
@@ -343,7 +385,8 @@ export default function SelectedWork({ darkMode = true }: { darkMode?: boolean }
         return tl
       }
 
-      mm.add('(min-width: 768px)', () => build(DESKTOP, { from: 4, to: 4 }))
+      mm.add('(min-width: 1024px)', () => build(DESKTOP, { from: 4, to: 4 }))
+      mm.add('(min-width: 768px) and (max-width: 1023px)', () => build(TABLET, { from: 3, to: 4 }))
       mm.add('(max-width: 767px)', () => build(MOBILE, { from: 2.5, to: 4 }))
       highlight(0)
     }, sectionRef)
@@ -381,31 +424,31 @@ export default function SelectedWork({ darkMode = true }: { darkMode?: boolean }
                 style={{ transformStyle: 'preserve-3d', willChange: 'transform' }}
               >
                 {/* Small cards — double-sided for the mid-flip reveal */}
-                <div ref={setCardRef('aeon')} className="absolute will-change-transform" style={{ width: 'min(200px,46vw)', aspectRatio: '4/3', transformStyle: 'preserve-3d' }}>
+                <div ref={(el) => { setCardSize('aeon')(el); setCardRef('aeon')(el); }} className="absolute will-change-transform" style={{ aspectRatio: '4/3', transformStyle: 'preserve-3d' as const }}>
                   <div style={FACE.front}><SmallMockup project={PROJECTS[0]} /></div>
                   <div style={FACE.back}><SmallBack project={PROJECTS[0]} /></div>
                 </div>
-                <div ref={setCardRef('cc')} className="absolute will-change-transform" style={{ width: 'min(134px,30vw)', aspectRatio: '3/4', transformStyle: 'preserve-3d' }}>
+                <div ref={(el) => { setCardSize('cc')(el); setCardRef('cc')(el); }} className="absolute will-change-transform" style={{ aspectRatio: '3/4', transformStyle: 'preserve-3d' as const }}>
                   <div style={FACE.front}><SmallMockup project={PROJECTS[1]} /></div>
                   <div style={FACE.back}><SmallBack project={PROJECTS[1]} /></div>
                 </div>
-                <div ref={setCardRef('rivo')} className="absolute will-change-transform" style={{ width: 'min(134px,30vw)', aspectRatio: '3/4', transformStyle: 'preserve-3d' }}>
+                <div ref={(el) => { setCardSize('rivo')(el); setCardRef('rivo')(el); }} className="absolute will-change-transform" style={{ aspectRatio: '3/4', transformStyle: 'preserve-3d' as const }}>
                   <div style={FACE.front}><SmallMockup project={PROJECTS[2]} /></div>
                   <div style={FACE.back}><SmallBack project={PROJECTS[2]} /></div>
                 </div>
-                <div ref={setCardRef('sl')} className="absolute will-change-transform" style={{ width: 'min(124px,29vw)', aspectRatio: '3/4', transformStyle: 'preserve-3d' }}>
+                <div ref={(el) => { setCardSize('sl')(el); setCardRef('sl')(el); }} className="absolute will-change-transform" style={{ aspectRatio: '3/4', transformStyle: 'preserve-3d' as const }}>
                   <div style={FACE.front}><SmallMockup project={PROJECTS[3]} /></div>
                   <div style={FACE.back}><SmallBack project={PROJECTS[3]} /></div>
                 </div>
-                <div ref={setCardRef('tn')} className="absolute will-change-transform" style={{ width: 'min(176px,41vw)', aspectRatio: '3/2', transformStyle: 'preserve-3d' }}>
+                <div ref={(el) => { setCardSize('tn')(el); setCardRef('tn')(el); }} className="absolute will-change-transform" style={{ aspectRatio: '3/2', transformStyle: 'preserve-3d' as const }}>
                   <div style={FACE.front}><SmallMockup project={PROJECTS[4]} /></div>
                   <div style={FACE.back}><SmallBack project={PROJECTS[4]} /></div>
                 </div>
                 {/* Main frame — stays IN FRONT at translateZ(150px) */}
                 <div
-                  ref={setCardRef('main')}
+                  ref={(el) => { setCardSize('main')(el); setCardRef('main')(el); }}
                   className="absolute will-change-transform"
-                  style={{ width: 'min(560px,64vw)', aspectRatio: '16/10', transformStyle: 'preserve-3d' }}
+                  style={{ aspectRatio: '16/10', transformStyle: 'preserve-3d' as const }}
                 >
                   <div style={FACE.front}><MainIndexCard rowRefs={rowRefs} /></div>
                   <div style={FACE.back}><MainBack /></div>

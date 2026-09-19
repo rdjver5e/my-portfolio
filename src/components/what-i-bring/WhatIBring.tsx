@@ -87,15 +87,18 @@ function Wheel({ darkMode, reduced }: { darkMode: boolean; reduced: boolean }) {
     if (!tiles.length) return
 
     const N = tiles.length
-    const dims = { rx: 310, ry: 0, depth: 0, stretchMax: 200, restTiltX: 16, mobile: false }
+    const dims = { rx: 310, ry: 0, depth: 0, stretchMax: 200, restTiltX: 16, mobile: false, scale: 1 }
     const measure = () => {
-      const mobile = window.innerWidth < 768
+      const w = window.innerWidth
+      const mobile = w < 768
+      const tablet = w >= 768 && w < 1024
       dims.mobile = mobile
-      dims.rx = mobile ? 215 : 310
+      dims.rx = mobile ? 215 : tablet ? 215 : 310
       dims.ry = dims.rx * 0.45
       dims.depth = dims.rx * 0.55
-      dims.stretchMax = mobile ? 140 : 200
-      dims.restTiltX = mobile ? 14 : 16
+      dims.stretchMax = mobile ? 140 : tablet ? 130 : 200
+      dims.restTiltX = mobile ? 14 : tablet ? 15 : 16
+      dims.scale = mobile ? 0.82 : tablet ? 0.82 : 1
       if (!st.down) {
         st.tTiltX = dims.restTiltX
       }
@@ -161,7 +164,7 @@ function Wheel({ darkMode, reduced }: { darkMode: boolean; reduced: boolean }) {
         // perspective, not from tiles turning edge-on.
         // Fully opaque — overlapping cards occlude cleanly by z-order.
         // Depth is cued with brightness, never transparency.
-        gsap.set(tiles[i], { x, y, z, rotationY: 0, rotation: 0, opacity: 1 })
+        gsap.set(tiles[i], { x, y, z, rotationY: 0, rotation: 0, opacity: 1, scaleX: dims.scale, scaleY: dims.scale })
         tiles[i].style.filter = `brightness(${(0.62 + depth01 * 0.38).toFixed(3)})`
         tiles[i].style.zIndex = String(Math.round(depth01 * 100))
         if (z > bestZ) {
@@ -351,7 +354,7 @@ function Wheel({ darkMode, reduced }: { darkMode: boolean; reduced: boolean }) {
           ))}
         </div>
       ) : (
-        <div className="flex items-center justify-center w-full" style={{ height: 'min(60vh,600px)', transformStyle: 'preserve-3d' }}>
+        <div data-tablet="wheel" className="flex items-center justify-center w-full" style={{ height: 'min(60vh,600px)', transformStyle: 'preserve-3d' }}>
           <div ref={ringRef} className="relative will-change-transform" style={{ transformStyle: 'preserve-3d', width: 0, height: 0 }}>
             {TILES.map((t, i) => (
               <div
@@ -430,16 +433,11 @@ export default function WhatIBring({ darkMode = true }: { darkMode?: boolean }) 
     <section
       ref={sectionRef}
       id="capabilities"
-      className="relative transition-colors duration-300"
+      className="relative transition-colors duration-300 overflow-hidden"
       style={{ background: darkMode ? '#0A0A0A' : '#FAFAFA' }}
     >
       {/* ─── Intro ─── */}
       <div data-wheel-intro-wrap className="px-6 md:px-12 lg:px-24 max-w-[1400px] mx-auto pt-24 md:pt-32 lg:pt-40 pb-4 md:pb-6 text-center">
-        <div data-wheel-intro className="mb-5">
-          <span className="text-[10px] tracking-[0.28em] uppercase" style={{ fontFamily: F, color: textMuted }}>
-            04&nbsp;&nbsp;/&nbsp;&nbsp;Capabilities
-          </span>
-        </div>
         <h2
           data-wheel-intro
           className="text-[clamp(2.4rem,6.5vw,5rem)] font-light tracking-[-0.02em] leading-[1.05]"
@@ -449,9 +447,6 @@ export default function WhatIBring({ darkMode = true }: { darkMode?: boolean }) 
           <br />
           on one wheel.
         </h2>
-        <p data-wheel-intro className="mt-5 text-[13px] md:text-sm tracking-[0.14em] uppercase" style={{ fontFamily: F, color: textMuted }}>
-          It spins on its own — grab it, tilt it, stretch it with scroll
-        </p>
         <div data-wheel-intro className="w-full h-px mt-8 max-w-[1400px] mx-auto" style={{ background: rule }} />
       </div>
 
@@ -474,14 +469,6 @@ export default function WhatIBring({ darkMode = true }: { darkMode?: boolean }) 
         >
           Design it. Build it. Break it. Learn what&rsquo;s missing. Build it better.
         </p>
-        <a
-          data-wheel-outro
-          href="#contact"
-          className="inline-block mt-8 px-9 py-3.5 rounded-full text-[12px] tracking-[0.25em] uppercase transition-opacity hover:opacity-80"
-          style={{ fontFamily: F, background: textMain, color: darkMode ? '#0A0A0A' : '#F5F5F5' }}
-        >
-          Start a project →
-        </a>
       </div>
     </section>
   )

@@ -179,7 +179,7 @@ export default function Experience({ darkMode = true }: { darkMode?: boolean }) 
             <p className="text-[11px] tracking-[0.3em] uppercase" style={{ fontFamily: F, color: muted }}>Next</p>
             <p className="mt-3 text-[clamp(1.8rem,3vw,2.6rem)] font-semibold leading-[0.9] tracking-[-0.02em]" style={{ fontFamily: F, color: ink }}>Your project<br />is the next<br />panel.</p>
             <p className="mt-4 text-[14px] leading-[1.6]" style={{ fontFamily: F, color: muted }}>If this wall felt intentional, imagine what we build together.</p>
-            <a href="#contact" className="mt-7 inline-flex w-fit items-center gap-2 rounded-full px-6 py-3 text-xs font-semibold tracking-[0.18em] uppercase" style={{ background: ink, color: bg }}>Start a project →</a>
+            <a href="#contact" data-tablet="btn-sm" className="mt-7 inline-flex w-fit items-center gap-2 rounded-full px-6 py-3 text-xs font-semibold tracking-[0.18em] uppercase" style={{ background: ink, color: bg }}>Start a project →</a>
           </div>
         </div>
 
