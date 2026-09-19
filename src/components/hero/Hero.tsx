@@ -124,32 +124,32 @@ export default function Hero({ darkMode }: { darkMode: boolean }) {
       {/* ========== MOBILE ONLY — EXACT IMAGE LAYOUT (visible equal gutters, centered 320-430) ========== */}
       <div className="flex md:hidden relative z-10 w-full flex-col min-h-[100svh] min-h-[100dvh] px-8 pt-[8.5rem] pb-10 overflow-x-clip">
         <div className="w-full max-w-[320px] mx-auto flex flex-col">
-        <motion.p initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.1 }} className="font-display text-[15px] tracking-[0.22em] uppercase" style={{ color: '#9CA3AF' }}>
+        <motion.p initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.1 }} className="font-display text-[15px] tracking-[0.22em] uppercase" style={{ color: darkMode ? '#9CA3AF' : '#6B7280' }}>
           HELLO, I&apos;M
         </motion.p>
 
         {/* Overlapping name — fitted so equal space remains on both sides */}
         <div className="mt-2 relative w-full">
-          <motion.h1 initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.75, ease: [0.16,1,0.3,1], delay: 0.16 }} className="relative z-10 font-anton leading-[0.85] tracking-[-0.01em] whitespace-nowrap text-[6.5rem]" style={{ color: '#FFFFFF' }}>
+          <motion.h1 initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.75, ease: [0.16,1,0.3,1], delay: 0.16 }} className="relative z-10 font-anton leading-[0.85] tracking-[-0.01em] whitespace-nowrap text-[6.5rem]" style={{ color: darkMode ? '#FFFFFF' : '#0A0A0A' }}>
             RISHAV
           </motion.h1>
-          <motion.h1 initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.75, ease: [0.16,1,0.3,1], delay: 0.26 }} className="relative z-0 font-anton leading-[0.85] tracking-[-0.01em] whitespace-nowrap text-[6.2rem] mt-[-0.22em] ml-[140px]" style={{ color: 'transparent', WebkitTextStroke: '1.2px rgba(255,255,255,0.38)' }}>
+          <motion.h1 initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.75, ease: [0.16,1,0.3,1], delay: 0.26 }} className="relative z-0 font-anton leading-[0.85] tracking-[-0.01em] whitespace-nowrap text-[6.2rem] mt-[-0.22em] ml-[140px]" style={{ color: 'transparent', WebkitTextStroke: darkMode ? '1.2px rgba(255,255,255,0.38)' : '1.2px rgba(10,10,10,0.35)' }}>
             DAS
           </motion.h1>
         </div>
 
-        <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.38 }} className="mt-6 font-display whitespace-nowrap text-[clamp(15px,4.6vw,19px)] leading-[1.5] tracking-[-0.01em]" style={{ color: '#FFFFFF' }}>
-          Crafting interfaces <span className="font-medium" style={{ color: '#FFFFFF' }}>people remember.</span>
+        <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.38 }} className="mt-6 font-display whitespace-nowrap text-[clamp(15px,4.6vw,19px)] leading-[1.5] tracking-[-0.01em]" style={{ color: darkMode ? '#FFFFFF' : '#0A0A0A' }}>
+          Crafting interfaces <span className="font-medium" style={{ color: darkMode ? '#FFFFFF' : '#0A0A0A' }}>people remember.</span>
         </motion.p>
 
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5, delay: 0.48 }} className="mt-5 flex items-center" aria-live="polite" aria-atomic="true">
-          <span className="font-display text-[17px] font-normal tracking-[0.01em] transition-colors duration-300" style={{ color: '#E8EAED' }}>{roles[activeRole]}</span>
+          <span className="font-display text-[17px] font-normal tracking-[0.01em] transition-colors duration-300" style={{ color: darkMode ? '#E8EAED' : '#374151' }}>{roles[activeRole]}</span>
         </motion.div>
         </div>
 
         {/* Centered CTA stack — exactly like reference */}
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.56 }} className="mt-10 flex w-full max-w-[320px] mx-auto flex-col items-center gap-3">
-          <a href="#projects" aria-label="View projects" className="group relative inline-flex w-[248px] items-center justify-around gap-4 h-[56px] pl-8 pr-3 rounded-full bg-white overflow-hidden">
+          <a href="#contact" aria-label="Contact" className={`group relative inline-flex w-[248px] items-center justify-around gap-4 h-[56px] pl-8 pr-3 rounded-full bg-white overflow-hidden ${darkMode ? 'border border-white/20' : 'border border-slate-300'}`}>
             <span className="font-display font-medium text-[17px] text-[#0A0A0A] relative z-10">Let&apos;s Connect</span>
             <span className="relative z-10 flex h-[42px] w-[42px] items-center justify-center rounded-full text-white transition-transform duration-300 group-hover:rotate-[-35deg]" style={{ background: '#0B1023' }}>
               <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.2}><path strokeLinecap="round" strokeLinejoin="round" d="M7 17L17 7M17 7H7m10 0v10" /></svg>
@@ -158,7 +158,7 @@ export default function Hero({ darkMode }: { darkMode: boolean }) {
           </a>
           <span className="inline-flex items-center gap-2.5">
             <span className="flex items-center justify-center h-4 w-4 rounded-full border border-[#43fa47]"><span className="h-2 w-2 rounded-full bg-[#43fa47]"></span></span>
-            <span className="font-display text-[13px] font-normal tracking-[0.04em]" style={{ color: '#B9BDC2' }}>Available for work</span>
+            <span className="font-display text-[13px] font-normal tracking-[0.04em]" style={{ color: darkMode ? '#B9BDC2' : '#6B7280' }}>Available for work</span>
           </span>
         </motion.div>
       </div>
@@ -241,8 +241,8 @@ export default function Hero({ darkMode }: { darkMode: boolean }) {
         {/* Action row — CTA + Availability */}
         <div ref={ctaGroupRef} className="flex flex-wrap items-center gap-4 sm:gap-6 md:gap-8 opacity-0">
           <a
-            href="#projects"
-            aria-label="View projects"
+            href="#contact"
+            aria-label="Contact"
             data-tablet="btn-lg"
             className={`group relative inline-flex items-center gap-2 sm:gap-3 h-12 sm:h-14 md:h-16 px-6 sm:px-7 md:px-9 rounded-full bg-white font-display font-medium text-[15px] sm:text-[16px] md:text-[20px] overflow-hidden ${
               darkMode ? 'border border-white/20' : 'border border-slate-300'

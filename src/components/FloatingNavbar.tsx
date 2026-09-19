@@ -17,39 +17,42 @@ export default function FloatingNavbar({ darkMode, onToggleDarkMode, isResumePag
         <nav aria-label="Main navigation">
           <Container>
             <div className="relative flex items-center justify-between gap-4 sm:gap-6">
-              {/* Logo */}
+              {/* Logo — far left */}
               <AnimatedLogo darkMode={darkMode} />
 
-              {/* Pill Menu — plug-and-play, centered */}
-              <PillMenu darkMode={darkMode} onToggleDarkMode={onToggleDarkMode} />
+              {/* Right cluster — far right */}
+              <div className="flex items-center gap-3 sm:gap-4">
+                {/* Resume / Download Button — desktop only */}
+                {isResumePage ? (
+                  <a
+                    href={cvPdf}
+                    download="RishavDas_CV.pdf"
+                    aria-label="Download resume"
+                    data-tablet="btn-sm"
+                    className={`group relative hidden md:inline-flex items-center h-12 px-6 rounded-full font-display font-medium overflow-hidden border transition-colors duration-300 hover:border-white ${
+                      darkMode ? 'border-white/20' : 'border-slate-300'
+                    }`}
+                  >
+                    <span className={`relative z-10 transition-colors duration-300 group-hover:text-white ${darkMode ? 'text-white' : 'text-slate-900'}`}>Download</span>
+                    <span className="absolute inset-0 bg-[#8B5CF6] translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out rounded-full" />
+                  </a>
+                ) : (
+                  <a
+                    href="#resume"
+                    aria-label="View resume"
+                    data-tablet="btn-sm"
+                    className={`group relative hidden md:inline-flex items-center h-12 px-6 rounded-full font-display font-medium overflow-hidden border transition-colors duration-300 hover:border-white ${
+                      darkMode ? 'border-white/20' : 'border-slate-300'
+                    }`}
+                  >
+                    <span className={`relative z-10 transition-colors duration-300 group-hover:text-white ${darkMode ? 'text-white' : 'text-slate-900'}`}>Resume</span>
+                    <span className="absolute inset-0 bg-[#8B5CF6] translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out rounded-full" />
+                  </a>
+                )}
 
-              {/* Resume / Download Button */}
-              {isResumePage ? (
-                <a
-                  href={cvPdf}
-                  download="RishavDas_CV.pdf"
-                  aria-label="Download resume"
-                  data-tablet="btn-sm"
-                  className={`group relative hidden md:inline-flex items-center h-12 px-6 rounded-full font-display font-medium overflow-hidden border transition-colors duration-300 hover:border-white ${
-                    darkMode ? 'border-white/20' : 'border-slate-300'
-                  }`}
-                >
-                  <span className={`relative z-10 transition-colors duration-300 group-hover:text-white ${darkMode ? 'text-white' : 'text-slate-900'}`}>Download</span>
-                  <span className="absolute inset-0 bg-[#8B5CF6] translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out rounded-full" />
-                </a>
-              ) : (
-                <a
-                  href="#resume"
-                  aria-label="View resume"
-                  data-tablet="btn-sm"
-                  className={`group relative hidden md:inline-flex items-center h-12 px-6 rounded-full font-display font-medium overflow-hidden border transition-colors duration-300 hover:border-white ${
-                    darkMode ? 'border-white/20' : 'border-slate-300'
-                  }`}
-                >
-                  <span className={`relative z-10 transition-colors duration-300 group-hover:text-white ${darkMode ? 'text-white' : 'text-slate-900'}`}>Resume</span>
-                  <span className="absolute inset-0 bg-[#8B5CF6] translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out rounded-full" />
-                </a>
-              )}
+                {/* Pill Menu — far right, dropdown follows pill (right-aligned) */}
+                <PillMenu darkMode={darkMode} onToggleDarkMode={onToggleDarkMode} />
+              </div>
             </div>
           </Container>
         </nav>

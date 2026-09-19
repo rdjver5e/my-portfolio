@@ -333,7 +333,9 @@ export default function SelectedWork({ darkMode = true }: { darkMode?: boolean }
       }
 
       const mm = gsap.matchMedia()
-      const build = (trip: Record<string, Trip>, dolly: { from: number; to: number }) => {
+      // fadeIn (mobile only): mask the scattered pre-start poses — small cards
+      // fade in over the first ~20% while converging, main card stays anchored
+      const build = (trip: Record<string, Trip>, dolly: { from: number; to: number }, fadeIn = false) => {
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: wrap,
@@ -355,23 +357,45 @@ export default function SelectedWork({ darkMode = true }: { darkMode?: boolean }
           const el = cardRefs.current[id]
           if (!el) return
           const t = trip[id]
-          tl.fromTo(
-            el,
-            { x: t.start.x, y: t.start.y, z: t.start.z, scale: t.start.s, opacity: t.start.o },
-            { x: t.mid.x, y: t.mid.y, z: t.mid.z, scale: t.mid.s, opacity: t.mid.o, ease: 'none', duration: 1 },
-            0
-          )
-          tl.to(
-            el,
-            { x: t.end.x, y: t.end.y, z: t.end.z, scale: t.end.s, opacity: t.end.o, ease: 'none', duration: 1 },
-            1
-          )
+          if (fadeIn && id !== 'main') {
+            // Opacity handled by a dedicated quick fade — excluded here to
+            // avoid two concurrent opacity tweens fighting on the same target
+            tl.fromTo(
+              el,
+              { x: t.start.x, y: t.start.y, z: t.start.z, scale: t.start.s },
+              { x: t.mid.x, y: t.mid.y, z: t.mid.z, scale: t.mid.s, ease: 'none', duration: 1 },
+              0
+            )
+            tl.to(
+              el,
+              { x: t.end.x, y: t.end.y, z: t.end.z, scale: t.end.s, ease: 'none', duration: 1 },
+              1
+            )
+            tl.fromTo(
+              el,
+              { opacity: 0 },
+              { opacity: 1, ease: 'power1.out', duration: 0.22 },
+              0
+            )
+          } else {
+            tl.fromTo(
+              el,
+              { x: t.start.x, y: t.start.y, z: t.start.z, scale: t.start.s, opacity: t.start.o },
+              { x: t.mid.x, y: t.mid.y, z: t.mid.z, scale: t.mid.s, opacity: t.mid.o, ease: 'none', duration: 1 },
+              0
+            )
+            tl.to(
+              el,
+              { x: t.end.x, y: t.end.y, z: t.end.z, scale: t.end.s, opacity: t.end.o, ease: 'none', duration: 1 },
+              1
+            )
+          }
         })
         return tl
       }
 
       mm.add('(min-width: 768px)', () => build(DESKTOP, { from: 4, to: 4 }))
-      mm.add('(max-width: 767px)', () => build(MOBILE, { from: 1.5, to: 2.2 }))
+      mm.add('(max-width: 767px)', () => build(MOBILE, { from: 1.5, to: 2.2 }, true))
       highlight(0)
     }, sectionRef)
 

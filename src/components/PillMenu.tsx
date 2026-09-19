@@ -7,6 +7,7 @@ const menuItems = [
   { label: 'Projects', href: '#projects' },
   { label: 'Skills', href: '#skills' },
   { label: 'Contact', href: '#contact' },
+  { label: 'Resume', href: '#resume', mobileOnly: true },
 ]
 const otherLinks = [
   { label: 'Privacy Policy', href: '#privacy' },
@@ -77,7 +78,7 @@ export default function PillMenu({ darkMode = false, onToggleDarkMode }: { darkM
   const handleBackdropClick = useCallback(() => setIsOpen(false), [])
 
   return (
-    <div className="absolute left-1/2 -translate-x-1/2 rounded-full">
+    <div className="relative rounded-full md:absolute md:left-1/2 md:-translate-x-1/2">
       {/* Pill Bar — src/components/FloatingNavbar.tsx:91 */}
       <motion.div data-tablet="pill" className="relative z-10 flex items-center gap-1 sm:gap-2 px-2 sm:px-3 h-[48px] sm:h-[56px] rounded-full bg-[#1a1a1a] border border-white/5 backdrop-blur-xl shadow-2xl overflow-hidden" layout transition={{ type: 'spring', stiffness: 300, damping: 30 }}>
         <AnimatedHamburger isOpen={isOpen} onClick={handleToggle} />
@@ -98,35 +99,35 @@ export default function PillMenu({ darkMode = false, onToggleDarkMode }: { darkM
           <>
             <motion.div className="fixed inset-0 bg-black/20 backdrop-blur-sm -z-10" initial={{ opacity: 0 }} animate={{ opacity: 0 }} exit={{ opacity: 0 }} onClick={handleBackdropClick} aria-hidden="true" />
             <motion.div
-              className="absolute left-1/2 -translate-x-1/2 -top-[10px] sm:-top-[15px] w-[65vw] max-w-[280px] bg-[#ececec] rounded-[32px] sm:rounded-[40px] p-5 sm:p-6 pb-8 sm:pb-10 overflow-x-hidden overflow-y-auto overscroll-contain origin-top max-h-[78dvh] sm:max-h-[85dvh]"
+              className="absolute right-0 md:right-auto md:left-1/2 md:-translate-x-1/2 -top-[10px] sm:-top-[15px] w-[55vw] max-w-[280px] md:w-[380px] md:max-w-[380px] lg:w-[65vw] lg:max-w-[280px] bg-[#ececec] rounded-[24px] sm:rounded-[40px] p-5 sm:p-6 md:p-8 lg:p-6 pb-8 sm:pb-10 md:pb-10 overflow-x-hidden overflow-y-auto overscroll-contain origin-top-right md:origin-top max-h-[78dvh] sm:max-h-[85dvh]"
               role="menu"
               initial={{ opacity: 0, scale: 0.3, y: -10 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.3, y: -10 }}
               transition={{ type: 'spring', stiffness: 260, damping: 24, mass: 1.2 }}
             >
               <div className="flex flex-col">
-                <div className="mt-16 mb-6">
-                  <motion.p className="text-[13px] text-slate-500 mb-4" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.1 }}>Menu</motion.p>
+                <div className="mt-16 md:mt-12 lg:mt-16 mb-6 md:mb-8 lg:mb-6">
+                  <motion.p className="text-[13px] md:text-sm lg:text-[13px] text-slate-500 mb-4" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.1 }}>Menu</motion.p>
                   <div className="flex flex-col gap-0">
                     {menuItems.map((item, i) => (
-                      <motion.a key={item.label} href={item.href} className="text-[1.5rem] sm:text-[1.8rem] font-semibold text-slate-900 hover:text-slate-600 transition-colors" initial={{ opacity: 0, x: -15 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.08, type: 'spring', stiffness: 200, damping: 20 }} whileHover={{ x: 8 }} role="menuitem" onClick={() => setIsOpen(false)}>{item.label}</motion.a>
+                      <motion.a key={item.label} href={item.href} className={`text-[1.5rem] sm:text-[1.8rem] md:text-[2rem] lg:text-[1.8rem] font-semibold text-slate-900 hover:text-slate-600 transition-colors${'mobileOnly' in item && item.mobileOnly ? ' md:hidden' : ''}`} initial={{ opacity: 0, x: -15 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.08, type: 'spring', stiffness: 200, damping: 20 }} whileHover={{ x: 8 }} role="menuitem" onClick={() => setIsOpen(false)}>{item.label}</motion.a>
                     ))}
                   </div>
                 </div>
-                <motion.div className="border-t border-slate-300 mb-6" initial={{ opacity: 0, scaleX: 0 }} animate={{ opacity: 1, scaleX: 1 }} transition={{ delay: 0.35, duration: 0.4 }} />
-                <div className="mb-6">
-                  <motion.p className="text-[13px] text-slate-500 mb-4" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }}>Other</motion.p>
+                <motion.div className="border-t border-slate-300 mb-6 md:mb-8 lg:mb-6" initial={{ opacity: 0, scaleX: 0 }} animate={{ opacity: 1, scaleX: 1 }} transition={{ delay: 0.35, duration: 0.4 }} />
+                <div className="mb-6 md:mb-8 lg:mb-6">
+                  <motion.p className="text-[13px] md:text-sm lg:text-[13px] text-slate-500 mb-4" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }}>Other</motion.p>
                   <div className="flex flex-col">
                     {otherLinks.map((item, i) => (
-                      <motion.a key={item.label} href={item.href} className="text-[0.875rem] font-semibold text-slate-700 hover:text-slate-900 transition-colors" initial={{ opacity: 0, x: -15 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.45 + i * 0.08, type: 'spring', stiffness: 200, damping: 20 }} whileHover={{ x: 4 }} role="menuitem" onClick={() => setIsOpen(false)}>{item.label}</motion.a>
+                      <motion.a key={item.label} href={item.href} className="text-[0.875rem] md:text-[1rem] lg:text-[0.875rem] font-semibold text-slate-700 hover:text-slate-900 transition-colors" initial={{ opacity: 0, x: -15 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.45 + i * 0.08, type: 'spring', stiffness: 200, damping: 20 }} whileHover={{ x: 4 }} role="menuitem" onClick={() => setIsOpen(false)}>{item.label}</motion.a>
                     ))}
                   </div>
                 </div>
                 <div className="flex-1" />
                 <div>
-                  <motion.p className="text-[13px] text-slate-500 mb-4" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.7 }}>Social media</motion.p>
-                  <div className="flex flex-col">
+                  <motion.p className="text-[13px] md:text-sm lg:text-[13px] text-slate-500 mb-4" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.7 }}>Social media</motion.p>
+                  <div className="flex flex-col md:gap-1 lg:gap-0">
                     {socialLinks.map((item, i) => (
-                      <motion.a key={item.label} href={item.href} className="text-[0.875rem] font-semibold text-slate-700 hover:text-slate-900 transition-colors" initial={{ opacity: 0, x: -15 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.75 + i * 0.08, type: 'spring', stiffness: 200, damping: 20 }} whileHover={{ x: 4 }} role="menuitem" onClick={() => setIsOpen(false)} target="_blank" rel="noopener noreferrer">{item.label}</motion.a>
+                      <motion.a key={item.label} href={item.href} className="text-[0.875rem] md:text-[1rem] lg:text-[0.875rem] font-semibold text-slate-700 hover:text-slate-900 transition-colors" initial={{ opacity: 0, x: -15 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.75 + i * 0.08, type: 'spring', stiffness: 200, damping: 20 }} whileHover={{ x: 4 }} role="menuitem" onClick={() => setIsOpen(false)} target="_blank" rel="noopener noreferrer">{item.label}</motion.a>
                     ))}
                   </div>
                 </div>
