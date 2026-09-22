@@ -11,7 +11,7 @@ export const resume = {
   portfolio: 'rishavdas.netlify.app',
   portfolioHref: 'https://rishavdas.netlify.app',
   githubHref: 'https://github.com/rdjverse',
-  linkedinHref: 'https://linkedin.com/in/rdjverse',
+  linkedinHref: 'https://www.linkedin.com/in/riishavdas',
 
   summary: [
     'UI/UX Designer & Frontend Developer with over a year of experience crafting responsive, user-friendly, and visually engaging websites.',

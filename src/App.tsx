@@ -98,7 +98,8 @@ function App() {
       <footer className={`py-6 border-t ${darkMode ? 'border-white/10' : 'border-slate-200'}`}>
         <Container>
           <p className={`font-display text-center text-[13px] ${darkMode ? 'text-[#6B7280]' : 'text-slate-400'}`}>
-            © 2026 rdjverse — Crafted with intent · Kolkata, India
+            © 2026 rdjverse — Crafted with intent<span className="hidden md:inline"> · Kolkata, India</span>
+            <span className="md:hidden"><br />Kolkata, India</span>
           </p>
         </Container>
       </footer>

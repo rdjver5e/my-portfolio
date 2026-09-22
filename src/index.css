@@ -365,20 +365,28 @@ a:focus-visible {
   [data-tablet="wheel"] { height: clamp(320px, 48vh, 440px) !important; max-width: calc(100vw - 32px); margin-inline: auto; }
   /* Wheel outro MOBILE-ADAPTED — Anton heading + subtext: prevent overflow on 320-430 */
   [data-wheel-outro-wrap] p:first-child { font-size: clamp(1.65rem,7vw,2.6rem) !important; line-height:0.92 !important; max-width:14ch; margin-inline:auto; text-wrap:balance; }
-  [data-wheel-outro-wrap] p:last-child { font-size: clamp(0.875rem,3.6vw,1rem) !important; line-height:1.65 !important; max-width:24ch; margin-inline:auto; text-wrap:pretty; }
+  [data-wheel-outro-wrap] p:last-child { font-size: 14px !important; line-height:1.65 !important; max-width:26ch; margin-inline:auto; text-wrap:pretty; }
+  /* Wheel caption skill — uniform 14px supporting tier on phones */
+  [data-wheel-caption] { font-size: 14px !important; }
   [data-tablet="wheel"] + div { margin-top: 1.25rem !important; }
 
   /* Experience — avoid 680px min trapping small portrait */
   #experience [class*="h-screen"] { min-height: 560px !important; height: 100svh !important; }
   #experience [data-panel] { width: 88vw !important; }
   #experience [class*="rounded-[32px]"] { border-radius: 22px !important; }
+  /* Experience — tappable CTA legible on phones (text-xs shrinks to 10.5px at 14px root) */
+  #experience [data-tablet="btn-sm"] { font-size: 14px !important; }
 
   /* Contact — keep hierarchy, ensure tap targets */
   #contact h2 { font-size: clamp(2rem, 9vw, 2.8rem) !important; line-height: 0.95 !important; }
-  #contact p { font-size: 0.9375rem !important; line-height: 1.65 !important; }
-  #contact [data-tablet="btn-lg"] { height: 3.25rem !important; padding-inline: 1.6rem !important; font-size: 1rem !important; }
+  #contact p { font-size: 14px !important; line-height: 1.65 !important; }
+  #contact [data-tablet="btn-lg"] { height: 3.25rem !important; padding-inline: 1.6rem !important; font-size: 14px !important; }
   #contact [class*="h-[56px]"] { height: 48px !important; width: 48px !important; }
   #contact [class*="h-[28px]"] { height: 24px !important; width: 24px !important; }
+
+  /* Uniform 14px supporting tier — pill progress readout + footer (mobile only) */
+  [data-tablet="pill"] > div { font-size: 14px !important; }
+  footer p { font-size: 14px !important; }
 
 }
 @media (max-width: 767px) and (hover: none) {

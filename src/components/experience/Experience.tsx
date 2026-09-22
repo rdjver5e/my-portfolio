@@ -169,7 +169,7 @@ export default function Experience({ darkMode = true }: { darkMode?: boolean }) 
               <div className="relative">
                 <span className="inline-flex rounded-full px-3 py-1 text-[11px] tracking-[0.22em] uppercase" style={{ fontFamily: F, color: muted, background: darkMode ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)', border: `1px solid ${faint}` }}>{s.year}</span>
                 <h3 className="mt-6 text-[clamp(1.7rem,3vw,2.4rem)] font-semibold leading-[0.95] tracking-[-0.02em]" style={{ fontFamily: F, color: ink }}>{s.title}</h3>
-                <p className="mt-2 text-[13px] tracking-wide" style={{ fontFamily: F, color: muted }}>{s.role}</p>
+                <p className="mt-2 text-[14px] md:text-[13px] tracking-wide" style={{ fontFamily: F, color: muted }}>{s.role}</p>
               </div>
             </div>
           ))}

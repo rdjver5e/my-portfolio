@@ -413,7 +413,7 @@ function Wheel({ darkMode, reduced }: { darkMode: boolean; reduced: boolean }) {
         <div ref={capNameRef} className="font-black tracking-tight leading-none" style={{ fontFamily: 'var(--font-anton)', fontSize: 'clamp(1.8rem,5vw,3.2rem)', color: darkMode ? '#F5F5F5' : '#0A0A0A' }}>
           {reduced ? 'Twelve crafts' : 'Motion'}
         </div>
-        <div ref={capSkillRef} className="mt-2 text-[12px] tracking-[0.25em] uppercase" style={{ fontFamily: F, color: ACCENT }}>
+        <div ref={capSkillRef} data-wheel-caption className="mt-2 text-[12px] tracking-[0.25em] uppercase" style={{ fontFamily: F, color: ACCENT }}>
           {reduced ? 'Everything visible at once' : 'Meaning in movement · GSAP'}
         </div>
       </div>
@@ -493,7 +493,7 @@ export default function WhatIBring({ darkMode = true }: { darkMode?: boolean }) 
           className="mx-auto max-w-[13ch] sm:max-w-[14ch] md:max-w-none text-[clamp(1.65rem,7vw,5.5rem)] sm:text-[clamp(1.85rem,7.5vw,5.5rem)] leading-[0.92] tracking-tight text-balance break-words"
           style={{ fontFamily: 'var(--font-anton)', color: textMain }}
         >
-          GIVE ME THE PROBLEM.
+          GIVE ME THE<br className="md:hidden" /> PROBLEM.
         </p>
         <p
           data-wheel-outro

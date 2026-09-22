@@ -138,8 +138,8 @@ export default function Hero({ darkMode }: { darkMode: boolean }) {
           </motion.h1>
         </div>
 
-        <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.38 }} className="mt-6 font-display whitespace-nowrap text-[clamp(15px,4.6vw,19px)] leading-[1.5] tracking-[-0.01em]" style={{ color: darkMode ? '#FFFFFF' : '#0A0A0A' }}>
-          Crafting interfaces <span className="font-medium" style={{ color: darkMode ? '#FFFFFF' : '#0A0A0A' }}>people remember.</span>
+        <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.38 }} className="mt-6 font-display text-balance text-[clamp(15px,4.6vw,19px)] leading-[1.5] tracking-[-0.01em]" style={{ color: darkMode ? '#FFFFFF' : '#0A0A0A' }}>
+          Crafting interfaces people <br /><span className="font-semibold text-[clamp(1.25rem,5.5vw,1.6rem)] leading-[1.25]" style={{ color: darkMode ? '#FFFFFF' : '#0A0A0A' }}>remember.</span>
         </motion.p>
 
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5, delay: 0.48 }} className="mt-5 flex items-center" aria-live="polite" aria-atomic="true">
@@ -158,7 +158,7 @@ export default function Hero({ darkMode }: { darkMode: boolean }) {
           </a>
           <span className="inline-flex items-center gap-2.5">
             <span className="flex items-center justify-center h-4 w-4 rounded-full border border-[#43fa47]"><span className="h-2 w-2 rounded-full bg-[#43fa47]"></span></span>
-            <span className="font-display text-[13px] font-normal tracking-[0.04em]" style={{ color: darkMode ? '#B9BDC2' : '#6B7280' }}>Available for work</span>
+            <span className="font-display text-[14px] font-normal tracking-[0.04em]" style={{ color: darkMode ? '#B9BDC2' : '#6B7280' }}>Available for work</span>
           </span>
         </motion.div>
       </div>

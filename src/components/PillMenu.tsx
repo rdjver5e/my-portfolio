@@ -9,14 +9,9 @@ const menuItems = [
   { label: 'Contact', href: '#contact' },
   { label: 'Resume', href: '#resume', mobileOnly: true },
 ]
-const otherLinks = [
-  { label: 'Privacy Policy', href: '#privacy' },
-  { label: 'Terms of Service', href: '#terms' },
-  { label: 'Cookie Policy', href: '#cookies' },
-]
 const socialLinks = [
-  { label: 'LinkedIn', href: '#linkedin' },
-  { label: 'GitHub', href: '#github' },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/riishavdas' },
+  { label: 'GitHub', href: 'https://github.com/rdjverse' },
 ]
 
 // --- Sub-components inlined from src/components/AnimatedHamburger.tsx:1, ThemeToggle.tsx:1, ScrollProgress.tsx:1 ---
@@ -82,7 +77,7 @@ export default function PillMenu({ darkMode = false, onToggleDarkMode }: { darkM
       {/* Pill Bar — src/components/FloatingNavbar.tsx:91 */}
       <motion.div data-tablet="pill" className="relative z-10 flex items-center gap-1 sm:gap-2 px-2 sm:px-3 h-[48px] sm:h-[56px] rounded-full bg-[#1a1a1a] border border-white/5 backdrop-blur-xl shadow-2xl overflow-hidden" layout transition={{ type: 'spring', stiffness: 300, damping: 30 }}>
         <AnimatedHamburger isOpen={isOpen} onClick={handleToggle} />
-        <span className="relative text-xs sm:text-sm md:text-base lg:text-[18px] font-medium min-w-[36px] sm:min-w-[44px] md:min-w-[52px] lg:min-w-[60px]">
+        <span className="relative text-[14px] sm:text-sm md:text-base lg:text-[18px] font-medium min-w-[36px] sm:min-w-[44px] md:min-w-[52px] lg:min-w-[60px]">
           <AnimatePresence mode="wait">
             <motion.span key={isOpen ? 'close' : 'menu'} className="text-white block" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.15 }}>
               {isOpen ? 'Close' : 'Menu'}
@@ -106,28 +101,20 @@ export default function PillMenu({ darkMode = false, onToggleDarkMode }: { darkM
             >
               <div className="flex flex-col">
                 <div className="mt-16 md:mt-12 lg:mt-16 mb-6 md:mb-8 lg:mb-6">
-                  <motion.p className="text-[13px] md:text-sm lg:text-[13px] text-slate-500 mb-4" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.1 }}>Menu</motion.p>
+                  <motion.p className="text-[14px] md:text-sm lg:text-[13px] text-slate-500 mb-4" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.1 }}>Menu</motion.p>
                   <div className="flex flex-col gap-0">
                     {menuItems.map((item, i) => (
-                      <motion.a key={item.label} href={item.href} className={`text-[1.5rem] sm:text-[1.8rem] md:text-[2rem] lg:text-[1.8rem] font-semibold text-slate-900 hover:text-slate-600 transition-colors${'mobileOnly' in item && item.mobileOnly ? ' md:hidden' : ''}`} initial={{ opacity: 0, x: -15 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.08, type: 'spring', stiffness: 200, damping: 20 }} whileHover={{ x: 8 }} role="menuitem" onClick={() => setIsOpen(false)}>{item.label}</motion.a>
+                      <motion.a key={item.label} href={item.href} className={`text-[1.5rem] sm:text-[1.8rem] md:text-[2rem] lg:text-[1.8rem] py-0.5 md:py-0 font-semibold text-slate-900 hover:text-slate-600 transition-colors${'mobileOnly' in item && item.mobileOnly ? ' md:hidden' : ''}`} initial={{ opacity: 0, x: -15 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.08, type: 'spring', stiffness: 200, damping: 20 }} whileHover={{ x: 8 }} role="menuitem" onClick={() => setIsOpen(false)}>{item.label}</motion.a>
                     ))}
                   </div>
                 </div>
                 <motion.div className="border-t border-slate-300 mb-6 md:mb-8 lg:mb-6" initial={{ opacity: 0, scaleX: 0 }} animate={{ opacity: 1, scaleX: 1 }} transition={{ delay: 0.35, duration: 0.4 }} />
-                <div className="mb-6 md:mb-8 lg:mb-6">
-                  <motion.p className="text-[13px] md:text-sm lg:text-[13px] text-slate-500 mb-4" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }}>Other</motion.p>
-                  <div className="flex flex-col">
-                    {otherLinks.map((item, i) => (
-                      <motion.a key={item.label} href={item.href} className="text-[0.875rem] md:text-[1rem] lg:text-[0.875rem] font-semibold text-slate-700 hover:text-slate-900 transition-colors" initial={{ opacity: 0, x: -15 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.45 + i * 0.08, type: 'spring', stiffness: 200, damping: 20 }} whileHover={{ x: 4 }} role="menuitem" onClick={() => setIsOpen(false)}>{item.label}</motion.a>
-                    ))}
-                  </div>
-                </div>
                 <div className="flex-1" />
                 <div>
-                  <motion.p className="text-[13px] md:text-sm lg:text-[13px] text-slate-500 mb-4" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.7 }}>Social media</motion.p>
+                  <motion.p className="text-[14px] md:text-sm lg:text-[13px] text-slate-500 mb-4" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.7 }}>Social media</motion.p>
                   <div className="flex flex-col md:gap-1 lg:gap-0">
                     {socialLinks.map((item, i) => (
-                      <motion.a key={item.label} href={item.href} className="text-[0.875rem] md:text-[1rem] lg:text-[0.875rem] font-semibold text-slate-700 hover:text-slate-900 transition-colors" initial={{ opacity: 0, x: -15 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.75 + i * 0.08, type: 'spring', stiffness: 200, damping: 20 }} whileHover={{ x: 4 }} role="menuitem" onClick={() => setIsOpen(false)} target="_blank" rel="noopener noreferrer">{item.label}</motion.a>
+                      <motion.a key={item.label} href={item.href} className="text-[15px] py-0.5 md:py-0 md:text-[1rem] lg:text-[0.875rem] font-semibold text-slate-700 hover:text-slate-900 transition-colors" initial={{ opacity: 0, x: -15 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.75 + i * 0.08, type: 'spring', stiffness: 200, damping: 20 }} whileHover={{ x: 4 }} role="menuitem" onClick={() => setIsOpen(false)} target="_blank" rel="noopener noreferrer">{item.label}</motion.a>
                     ))}
                   </div>
                 </div>
