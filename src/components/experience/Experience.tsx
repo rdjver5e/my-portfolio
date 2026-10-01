@@ -35,9 +35,9 @@ interface Stop {
 const STOPS: Stop[] = [
   {
     n: '01',
-    year: 'Jul – Aug 2024',
+    year: 'Jul to Aug 2024',
     title: 'Developer',
-    role: 'GrapplTech — Internship',
+    role: 'GrapplTech, Internship',
     text: '',
     tags: [] as string[],
     img: U('photo-1522071820081-009f0129c71c'),
@@ -45,7 +45,7 @@ const STOPS: Stop[] = [
   },
   {
     n: '02',
-    year: 'Sep – Dec 2025',
+    year: 'Sep to Dec 2025',
     title: 'Frontend Developer',
     role: 'Remedio Technologies',
     text: '',
@@ -55,8 +55,8 @@ const STOPS: Stop[] = [
   },
   {
     n: '03',
-    year: 'Feb 2026 – Present',
-    title: 'Visual Web Developer',
+    year: 'Feb 2026 to Present',
+    title: 'Webflow Developer',
     role: 'CoinedOne',
     text: '',
     tags: [] as string[],

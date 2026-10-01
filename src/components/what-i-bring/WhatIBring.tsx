@@ -236,7 +236,7 @@ function Wheel({ darkMode, reduced }: { darkMode: boolean; reduced: boolean }) {
       })
       gsap.set(ring, { rotationX: 0, rotationY: 0 })
       if (capNameRef.current) capNameRef.current.textContent = 'Twelve crafts'
-      if (capSkillRef.current) capSkillRef.current.textContent = 'Hover-free zone — everything visible at once'
+      if (capSkillRef.current) capSkillRef.current.textContent = 'Hover free zone, everything visible at once'
       return
     }
 

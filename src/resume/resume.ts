@@ -16,23 +16,23 @@ export const resume = {
   summary: [
     'UI/UX Designer & Frontend Developer with over a year of experience crafting responsive, user-friendly, and visually engaging websites.',
     'Skilled at blending design thinking with clean, functional code to deliver digital experiences that are both intuitive and impactful.',
-    'Skilled in HTML, CSS, JavaScript, Tailwind CSS, Bootstrap, and Figma with strong grounding in wireframing, usability, and prototyping.',
+    'Skilled in HTML, CSS, JavaScript, Tailwind CSS, and Figma with strong grounding in wireframing, usability, and prototyping.',
     'Expanding expertise in React.js, GSAP and no-code tools ( Framer & Wix Studio) for scalable, modern solutions.',
     'Delivered 10+ projects, improving performance and user engagement through responsive, accessible design.',
   ],
 
   experiences: [
     {
-      org: 'CoinedOne - Visual Web Developer',
-      period: 'Feb 2026 – Present',
+      org: 'CoinedOne - Webflow Developer',
+      period: 'Feb 2026 to Present',
       points: [
-        'Visual web development with AI-assisted workflows — prompting, prototyping and shipping production interfaces faster.',
+        'Visual web development with AI-assisted workflows, prompting, prototyping and shipping production interfaces faster.',
         'Own frontend delivery for product surfaces; bridging design intent and performant React implementation.',
       ],
     },
     {
       org: 'Remedio Technologies - Frontend Developer',
-      period: 'Sep 2025 – Dec 2025',
+      period: 'Sep 2025 to Dec 2025',
       points: [
         'Built and maintained frontend features for core product flows with a focus on reliability and polish.',
         'Collaborated on-site with design and backend to ship iterative improvements.',
@@ -40,7 +40,7 @@ export const resume = {
     },
     {
       org: 'Freelance Web Designer / Frontend Developer Remote',
-      period: '2024 – Present',
+      period: '2024 to Present',
       points: [
         'Designed and developed responsive websites, landing pages, and digital interfaces for startups and small businesses, ensuring scalability and user engagement.',
         'Translated Figma mockups into pixel-perfect, cross-browser compatible HTML/CSS/JS layouts, following mobile-first best practices.',
@@ -50,13 +50,6 @@ export const resume = {
   ],
 
   projects: [
-    {
-      name: 'Storelyft.com',
-      tag: 'Ecommerce Website',
-      points: [
-        'Built a modern e-commerce platform with user-friendly navigation and optimized product layouts. Enhanced site performance through clean code, SEO basics, and cross-browser testing.',
-      ],
-    },
     {
       name: 'Doctor’s-Hub',
       tag: 'Online Appointment System',
@@ -68,7 +61,7 @@ export const resume = {
       name: 'OrbitDynamix',
       tag: 'Portfolio Website',
       points: [
-        'Designed and developed a personal brand portfolio website showcasing UI/UX projects and web development skills. Implemented a responsive, mobile-first layout to ensure consistent user experience across devices.',
+        'Designed and developed a personal brand portfolio website covering UI/UX projects and web development skills. Implemented a responsive, mobile-first layout to ensure consistent user experience across devices.',
       ],
     },
     {
@@ -86,13 +79,6 @@ export const resume = {
       ],
     },
     {
-      name: 'Finiacq',
-      tag: 'Fintech Platform',
-      points: [
-        'Created a fintech product interface with clean data presentation and accessible, mobile-first flows; emphasized usability and trust.',
-      ],
-    },
-    {
       name: 'Brookhaven Properties',
       tag: 'Real Estate Platform',
       points: [
@@ -106,16 +92,15 @@ export const resume = {
     'CSS',
     'JavaScript',
     'Tailwind CSS',
-    'Bootstrap',
     'Figma',
     'Wireframing',
     'Usability, prototyping & UX.',
   ],
 
   education: [
-    'Bachelor of Computer Applications (BCA) – 2025, Dinabandhu Andrews Institute of Technology & Management (MAKAUT)',
-    '12th Diploma (CBSE) – Darjeeling Public School',
-    'Matriculation (CBSE) – 2020, Darjeeling Public School',
+    'Bachelor of Computer Applications (BCA), Dinabandhu Andrews Institute of Technology & Management (MAKAUT), 2025',
+    '12th Diploma (CBSE), Darjeeling Public School',
+    'Matriculation (CBSE), Darjeeling Public School',
   ],
 
   languages: ['English', 'Bengali', 'Hindi'],

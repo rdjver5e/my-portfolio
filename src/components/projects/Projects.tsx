@@ -20,7 +20,7 @@ const projects: Project[] = [
   {
     id: 1,
     title: 'E-Commerce Platform',
-    description: 'A full-stack e-commerce solution with real-time inventory management, AI-powered recommendations, and seamless checkout experience.',
+    description: 'A full-stack e-commerce solution with real-time inventory management, AI-powered recommendations, and a fast checkout flow.',
     tags: ['React', 'Node.js', 'PostgreSQL', 'Stripe', 'Redis'],
     image: '/projects/ecommerce.jpg',
     liveUrl: '#',

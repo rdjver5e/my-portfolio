@@ -118,7 +118,7 @@ export default function Hero({ darkMode }: { darkMode: boolean }) {
   return (
     <section
       ref={sectionRef}
-      aria-label="Hero — introduction"
+      aria-label="Hero introduction"
       className={`relative min-h-[100dvh] min-h-screen flex flex-col justify-center overflow-x-clip overflow-y-visible transition-colors duration-300 ${darkMode ? 'bg-[#0A0A0A]' : 'bg-white'} pb-10 md:pb-16`}
     >
       {/* ========== MOBILE ONLY — EXACT IMAGE LAYOUT (visible equal gutters, centered 320-430) ========== */}

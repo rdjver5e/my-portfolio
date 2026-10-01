@@ -15,7 +15,7 @@ const capabilities: Capability[] = [
   {
     id: 1,
     title: ['Creative', 'Frontend', 'Development'],
-    description: 'Building premium digital experiences where design and engineering work together seamlessly.',
+    description: 'Building premium digital experiences where design and engineering work hand in hand.',
     tools: ['React', 'TypeScript', 'JavaScript', 'GSAP', 'Tailwind CSS', 'Webflow'],
   },
   {
