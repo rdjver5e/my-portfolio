@@ -96,7 +96,6 @@ export default function Contact({ darkMode = true }: { darkMode?: boolean }) {
   const bg = darkMode ? '#0A0A0A' : '#F5F5F5'
   const ink = darkMode ? '#F5F5F5' : '#131313'
   const muted = darkMode ? 'rgba(245,245,245,0.5)' : 'rgba(19,19,19,0.45)'
-  const hairline = darkMode ? 'rgba(255,255,255,0.08)' : 'rgba(19,19,19,0.08)'
 
   return (
     <section ref={sectionRef} id="contact" className="relative overflow-hidden transition-colors duration-300" style={{ background: bg }}>

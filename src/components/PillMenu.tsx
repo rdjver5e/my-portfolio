@@ -41,7 +41,7 @@ function ScrollProgress({ progress }: { progress: number }) {
   useEffect(() => { springProgress.set(progress) }, [progress, springProgress])
   const displayProgress = useTransform(springProgress, (v) => Math.round(v))
   return (
-    <div className="flex items-center justify-center min-w-[70px] h-9 px-3 rounded-full bg-white/15 text-white text-base font-medium">
+    <div className="flex items-center justify-center min-w-[60px] h-8 px-2.5 rounded-full bg-white/15 text-white text-sm font-medium sm:min-w-[70px] sm:h-9 sm:px-3 sm:text-base">
       <motion.span>{displayProgress}</motion.span><span>%</span>
     </div>
   )

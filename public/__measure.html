@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>PENDING</title>
+    <style>
+      body { margin: 0; background: #222; }
+      iframe { border: 0; display: block; }
+    </style>
+  </head>
+  <body>
+    <div id="host"></div>
+    <script>
+      const widths = [320, 360, 375, 390, 414, 430, 480, 540, 600, 700, 767];
+      const host = document.getElementById('host');
+      const done = {};
+      const report = () => {
+        if (Object.keys(done).length === widths.length) {
+          document.title = 'ZZ' + JSON.stringify(widths.map((w) => done[w])) + 'ZZ';
+        }
+      };
+      widths.forEach((w) => {
+        const f = document.createElement('iframe');
+        f.width = w;
+        f.height = 900;
+        f.src = '/?m=' + w;
+        host.appendChild(f);
+        f.addEventListener('load', () => {
+          setTimeout(() => {
+            const d = f.contentDocument;
+            const win = f.contentWindow;
+            const pick = (s) => d.querySelector(s);
+            const rect = (el) => {
+              if (!el) return null;
+              const b = el.getBoundingClientRect();
+              return {
+                l: +b.left.toFixed(1),
+                r: +b.right.toFixed(1),
+                w: +b.width.toFixed(1),
+                c: +(b.left + b.width / 2).toFixed(1),
+              };
+            };
+            const wrap = pick('.md\\:hidden');
+            const col = wrap ? wrap.firstElementChild : null;
+            const nw = col ? col.querySelector('.items-center') : null;
+            const h1s = nw ? Array.from(nw.querySelectorAll('h1')) : [];
+            const cr = rect(col);
+            const rr = rect(h1s[0]);
+            const dr = rect(h1s[1]);
+            const mid = cr ? cr.l + cr.w / 2 : 0;
+            const ps = col ? Array.from(col.querySelectorAll('p')) : [];
+            done[w] = {
+              W: win.innerWidth,
+              root: win.getComputedStyle(d.documentElement).fontSize,
+              padL: win.getComputedStyle(wrap).paddingLeft,
+              C: cr ? cr.w : null,
+              font: h1s[0] ? win.getComputedStyle(h1s[0]).fontSize : null,
+              slack: cr && rr ? +(cr.w - rr.w).toFixed(1) : null,
+              nwOff: nw ? +(rect(nw).c - mid).toFixed(1) : null,
+              helloOff: ps[0] ? +(rect(ps[0]).c - mid).toFixed(1) : null,
+              tagOff: ps[1] ? +(rect(ps[1]).c - mid).toFixed(1) : null,
+              roleOff: col
+                ? +(rect(col.querySelector('[aria-live="polite"]')).c - mid).toFixed(1)
+                : null,
+              pastVp: rr && dr ? +(Math.max(rr.r, dr.r) - win.innerWidth).toFixed(1) : null,
+              hscroll: d.documentElement.scrollWidth > win.innerWidth,
+            };
+            report();
+          }, 2200);
+        });
+      });
+      setTimeout(() => {
+        if (document.title === 'PENDING')
+          document.title = 'ZZ' + JSON.stringify(done) + 'ZZ';
+      }, 11000);
+    </script>
+  </body>
+</html>
